@@ -19,21 +19,15 @@ public class Gun : MonoBehaviour
     private bool triggerReleased;
     private float nextShot = 0;
 
-    private Transform barrel;
-    private Transform exit;
+    public Transform shootExitPoint;
+    public Transform shellExitPoint;
 
     private void Start()
     {
-        bullet.damage = damage;
+        bullet.gunDamageAmount = damage;
         bullet.speed = fireIntensity;
         bulletsLeft = magazineSize;
-        for (int i = 0; i < gameObject.transform.childCount; i++) {
-            if (gameObject.transform.GetChild(i).tag == "Gun_Tip") {
-                barrel = gameObject.transform.GetChild(i);
-            } else if (gameObject.transform.GetChild(i).tag == "Gun_Exit") {
-                exit = gameObject.transform.GetChild(i);
-            }
-        }
+        
         nextShot = Time.time + shotDelay / 100;
         //DebugGun();
     }
@@ -50,9 +44,9 @@ public class Gun : MonoBehaviour
         if ((!reloading) && (Time.time > nextShot) && (bulletsLeft > 0)) {
             bulletsLeft--;
             nextShot = Time.time + shotDelay / 100;
-            Instantiate(bullet, barrel.position, barrel.rotation).damage = damage;
+            Instantiate(bullet, shootExitPoint.position, shootExitPoint.rotation).gunDamageAmount = damage;
             //print("Bullet created.");
-            Instantiate(shell, exit.position, exit.rotation);
+            Instantiate(shell, shellExitPoint.position, shellExitPoint.rotation);
             //print("Shell created.");
         }
     }

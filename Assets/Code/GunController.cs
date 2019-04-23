@@ -5,8 +5,6 @@ public class GunController : MonoBehaviour
 {
     private Gun gun;
     public Gun Gun { get { return gun; } }
-    public Transform barrel;
-    public Transform exit;
 
     private void Awake()
     {
@@ -19,8 +17,8 @@ public class GunController : MonoBehaviour
             Destroy(gun.gameObject);
         }
 
-        gun = Instantiate(toEquip, barrel.position, barrel.rotation) as Gun;
-        gun.transform.parent = barrel;
+        gun = Instantiate(toEquip, gun.shootExitPoint.position, gun.shootExitPoint.rotation) as Gun;
+       // gun.transform.parent = gun.shootExitPoint;
     }
 
     public void TriggerHeld()
@@ -35,7 +33,9 @@ public class GunController : MonoBehaviour
 
     public void Aim(Vector3 point)
     {
-        if (gun != null) { gun.transform.LookAt(point); }
+        if (gun != null) { gun.transform.LookAt(new Vector3(point.x, gun.transform.position.y, point.z));
+            //transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        }
     }
 
     public void Reload()

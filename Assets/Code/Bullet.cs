@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     public float speed = 10;
     public float lifetime = 3f;
     private static float skin = .1f;
-    public float damage;
+    public float gunDamageAmount;
     public int maxBounces;
     private int bounces = 0;
 
@@ -51,10 +51,6 @@ public class Bullet : MonoBehaviour
             //HitObject(hit.collider, hit.point);
             HitObject(hit);
         }
-        if (Physics.Raycast(ray, out hit, (velocity + skin), bounceable)) {
-            //HitObject(hit.collider, hit.point);
-            HitObject(hit);
-        }
     }
 
     /*private void HitObject(Collider collider, Vector3 hitPoint) {
@@ -73,6 +69,7 @@ public class Bullet : MonoBehaviour
     private void HitObject(RaycastHit hit)
     {
         if (hit.collider.gameObject.layer == bounceable) {
+
             if (bounces < maxBounces) {
                 print(hit.collider.gameObject.layer.ToString());
                 gameObject.transform.forward = Vector3.Reflect((hit.point - gameObject.transform.position), hit.normal);
@@ -81,14 +78,14 @@ public class Bullet : MonoBehaviour
                 //speed -= 9;
 
             } else {
-                Destroy(gameObject);
+                Destroy(this);
             }
 
         } else {
             if (hit.collider.gameObject.GetComponent<Player>() != null) {
-                hit.collider.gameObject.GetComponent<Player>().TakeHit(damage, hit.point, -(hit.collider.transform.forward));
+                hit.collider.gameObject.GetComponent<Player>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
             } else if (hit.collider.gameObject.GetComponent<Enemy>() != null) {
-                hit.collider.gameObject.GetComponent<Enemy>().TakeHit(damage, hit.point, -(hit.collider.transform.forward));
+                hit.collider.gameObject.GetComponent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
             }
             Destroy(gameObject);
         }

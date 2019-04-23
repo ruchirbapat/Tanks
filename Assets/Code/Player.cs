@@ -24,25 +24,26 @@ public class Player : Entity
 
     private void Update()
     {
-        velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * movementSpeed;
+        Vector3 latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        velocity = latestInput * movementSpeed;
         Globals.PlayerPosition = gameObject.transform.position;
         Globals.PlayerNextPosition = gameObject.transform.position + velocity;
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, Vector3.up * gunController.barrel.position.y);
 
-        float rayLength;
-        if (plane.Raycast(ray, out rayLength)) {
-            Vector3 point = ray.GetPoint(rayLength);
+        if (latestInput != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(latestInput);
 
-            //Buggy Trigonometry Code for gun-to-mouse position angle adjustment
-            /*angle = Mathf.Acos((Mathf.Abs(point.x - gunController.barrel.position.z)) / (Vector3.Distance(new Vector3(point.x, 0, point.z), new Vector3(gunController.barrel.position.x, 0, gunController.barrel.position.z)))) * Mathf.Rad2Deg //Calculate angle;  
-            Debug.Log("Angle: " + angle.ToString()); //Debug value
-            gameObject.transform.LookAt(new Vector3(point.x + angle, transform.position.y, point.z + angle)); //Look*/
-            if ((new Vector2(point.x, point.z) - new Vector2(transform.position.x, transform.position.z)).sqrMagnitude > 2) {
-                gunController.Aim(point);
-            }
-            gameObject.transform.LookAt(new Vector3(point.x, transform.position.y, point.z));
+        
+        Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+        float distanceToIntersection;
 
+        // intersect with a plane at the same level as the gun to fix a weird parallax issue
+        Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
+
+        Debug.DrawRay(mouseRay.origin, mouseRay.direction, Color.red);
+
+        if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection)) {
+            Vector3 hit = mouseRay.GetPoint(distanceToIntersection);
+            gunController.Aim(hit);
         }
 
         if (Input.GetMouseButton(0)) { gunController.TriggerHeld(); }
