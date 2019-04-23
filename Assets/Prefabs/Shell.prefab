@@ -105,6 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a4a09918532d24394820a17d41c64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxForce: 150
+  minForce: 120
+  lifetime: 2
+  fadeTime: 3
 --- !u!54 &54996362841838858
 Rigidbody:
   m_ObjectHideFlags: 0

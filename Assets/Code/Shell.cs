@@ -6,10 +6,10 @@ public class Shell : MonoBehaviour
 {
 
     private Rigidbody attachedRigidbody;
-    private float maxForce = 120;
-    private float minForce = 90;
-    private float lifetime = 1;
-    private float fadeTime = 1;
+    public float maxForce = 120;
+    public float minForce = 90;
+    public float lifetime = 1;
+    public float fadeTime = 1;
 
     private void Start()
     {
@@ -23,11 +23,11 @@ public class Shell : MonoBehaviour
     {
         yield return new WaitForSeconds(lifetime);
         float percent = 0;
-        //float fadeSpeed = 1 / fadeTime;
+        float fadeSpeed = 1 / fadeTime;
         Material material = GetComponent<Renderer>().material;
         Color original = material.color;
         while (percent < 1) {
-            percent += Time.deltaTime;
+            percent += (fadeSpeed * Time.deltaTime);
             material.color = Color.Lerp(original, Color.clear, percent);
             yield return null;
         }
