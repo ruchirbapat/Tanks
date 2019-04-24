@@ -42,12 +42,12 @@ public class Gun : MonoBehaviour
     private void ShootGun()
     {
         if ((!reloading) && (Time.time > nextShot) && (bulletsLeft > 0)) {
-            bulletsLeft--;
             nextShot = Time.time + shotDelay / 100;
-            Instantiate(bullet, shootExitPoint.position, shootExitPoint.rotation).gunDamageAmount = damage;
-            //print("Bullet created.");
+            bulletsLeft--;
+            Bullet b = Instantiate(bullet, shootExitPoint.position, shootExitPoint.rotation) as Bullet;
+            b.gunDamageAmount = damage;
+            b.speed = fireIntensity;
             Instantiate(shell, shellExitPoint.position, shellExitPoint.rotation);
-            //print("Shell created.");
         }
     }
 
@@ -59,7 +59,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void TriggerHeld()
+    public void Shoot()
     {
         ShootGun();
         triggerReleased = false;

@@ -10,6 +10,9 @@ public class Enemy : Entity
     private Player player;
     private NavMeshAgent navAgent;
     private GunController gunController;
+    private Quaternion targetRotation;
+    private bool reachedRot = true;
+    private float rotPercent = 0;
 
     public enum CurrentTask { Idle, Hunting, Aiming, Shooting, BeDead }
     private CurrentTask currentTask;
@@ -18,9 +21,12 @@ public class Enemy : Entity
     public float moveSpeed;
     public float turningSpeed;
 
-    [Header("AI Properties")]
+    [Header("AI")]
     [Range(1, 10)]
     public int intelligence;
+
+    [Header("Other Attributes")]
+    public LayerMask collideMask;
 
     // Initialise values (once per script)
     void Awake() {
@@ -28,15 +34,44 @@ public class Enemy : Entity
     }
 
     // Start is called before the first frame update
-    protected override void Start() {
+    protected override void Start()
+    {
         base.Start();
         player = FindObjectOfType<Player>();
         navAgent = GetComponent<NavMeshAgent>();
+        if (moveSpeed == 0)
+            navAgent.enabled = false;
+        else {
+            navAgent.speed = moveSpeed;
+            navAgent.angularSpeed = turningSpeed;
+        }
         gunController = GetComponentInChildren<GunController>();
-        navAgent.speed = moveSpeed;
-        navAgent.angularSpeed = turningSpeed;
         OnDeath += OnEnemyDeath;
         currentTask = CurrentTask.Idle;
+    }
+
+    void Attack()
+    {
+        currentTask = CurrentTask.Shooting;
+        Ray ray = new Ray(transform.position, player.transform.position - transform.position);
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+
+        if (!Physics.Raycast(ray, out hit, 1000, collideMask)) {
+            //direct line of sight to player
+            gunController.TriggerHeld();
+        } else {
+            //do something
+        }
+    }
+
+    private void Update()
+    {
+        gunController.Aim(player.transform.position);
+        navAgent.SetDestination(player.transform.position);
+
+        Attack();
+        
     }
 
     void OnEnemyDeath()
@@ -44,21 +79,37 @@ public class Enemy : Entity
         currentTask = CurrentTask.BeDead;
     }
 
-    IEnumerator Attack()
+    IEnumerator AttackEnum(float waitTime, float turnTime)
     {
-        Ray ray = new Ray(transform.position, player.transform.position - transform.position);
-        RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-        //if (Physics.Raycast(ray, out hit, vel + skin, collidable, QueryTriggerInteraction.Collide)) {
+        while(player != null) {
+            if(currentTask != CurrentTask.BeDead) {
+                Ray ray = new Ray(transform.position, player.transform.position - transform.position);
+                RaycastHit hit;
+                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
 
-        if (!Physics.Raycast(ray, out hit, 1000, 9)) {
-            // direct line of sight to player
-            gunController.Aim(player.transform.position);
-            gunController.TriggerHeld();
+                if (!Physics.Raycast(ray, out hit, 1000, collideMask)) {
+                    //direct line of sight to player
+                    gunController.Aim(player.transform.position);
+                    gunController.TriggerHeld();
+                } else {
+                    float turnRate = 1 / turnTime;
+                    if (!reachedRot) {
+                        rotPercent += (Time.deltaTime * turnRate);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotPercent);
+                        if (Quaternion.Angle(transform.rotation, targetRotation) < 1) {
+                            reachedRot = true;
+                        }
+                    } else {
+                        targetRotation = Random.rotation;
+                        reachedRot = false;
+                        yield return new WaitForSeconds(waitTime);
+                    }
 
+                }
+            }
+
+            yield return new WaitForSeconds(0.166f);
         }
-
-        yield return null;
     }
 
     IEnumerator Chase()
@@ -67,35 +118,21 @@ public class Enemy : Entity
         yield return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator TurnToRandomPoint(float turnTime, float waitTime)
     {
-        switch(intelligence) {
-            case 1:
-                StartCoroutine(Attack());
-                break;
-            case 2:
-                StartCoroutine(Chase());
-                StartCoroutine(Attack());
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            case 10:
-                break;
-            default:
-                break;
+        float turnRate = 1 / turnTime;
+        if (!reachedRot) {
+            rotPercent += (Time.deltaTime * turnRate);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotPercent);
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 1) {
+                reachedRot = true;
+            }
+        } else {
+            targetRotation = Random.rotation;
+            reachedRot = false;
+            yield return new WaitForSeconds(waitTime);
         }
     }
+
+    
 }

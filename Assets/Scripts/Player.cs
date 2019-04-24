@@ -18,6 +18,10 @@ public class Player : Entity
     private Quaternion targetRotation;
     private Vector3 lastInput;
 
+    private float smoothInputMagnitude;
+    private float smoothMoveVelocity;
+    private float angle;
+
     protected void Awake()
     {
         targetRotation = transform.rotation;
@@ -47,6 +51,8 @@ public class Player : Entity
 
     private void Update()
     {
+
+
         Vector3 latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         velocity = latestInput * movementSpeed;
 
@@ -57,13 +63,11 @@ public class Player : Entity
             StartCoroutine(Rotate(latestInput));
         }
 
-        
         Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
         float distanceToIntersection;
 
         // intersect with a plane at the same level as the gun to fix a weird parallax issue
         Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
-
 
         if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection)) {
             Vector3 hit = mouseRay.GetPoint(distanceToIntersection);

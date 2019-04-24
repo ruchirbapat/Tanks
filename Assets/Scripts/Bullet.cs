@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
 
     public LayerMask collidable;
-    public LayerMask bounceable;
+    public static int bounceable;
     public Color trailColour;
     public float trailDuration;
     public float speed = 10;
@@ -16,14 +16,11 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        //bounceable = GameObject.FindGameObjectsWithTag("Environment")[0].gameObject.layer;
+        bounceable = GameObject.FindGameObjectsWithTag("Environment")[0].gameObject.layer;
     }
 
     private void Start()
     {
-        print("Bullet created");
-
-
         Destroy(gameObject, lifetime);
 
         /*Collider[] collisions = Physics.OverlapSphere(transform.position, skin, collidable);
@@ -71,12 +68,9 @@ public class Bullet : MonoBehaviour
         if (hit.collider.gameObject.layer == bounceable) {
 
             if (bounces < maxBounces) {
-                print(hit.collider.gameObject.layer.ToString());
                 gameObject.transform.forward = Vector3.Reflect((hit.point - gameObject.transform.position), hit.normal);
-
                 bounces++;
                 //speed -= 9;
-
             } else {
                 Destroy(this);
             }
