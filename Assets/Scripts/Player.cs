@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(GunController))]
@@ -12,9 +13,19 @@ public class Player : Entity
     public Vector3 Velocity { get { return velocity; } }
     //private Vector3 angle;
     public float movementSpeed;
+    public float turnTime;
 
-    private void Awake()
+    private Quaternion targetRotation;
+    private Vector3 lastInput;
+
+    protected void Awake()
     {
+        targetRotation = transform.rotation;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         velocity = Vector3.zero;
         attachedRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponentInChildren<GunController>();
@@ -22,15 +33,29 @@ public class Player : Entity
         //angle = Vector3.zero;
     }
 
+    IEnumerator Rotate(Vector3 rotTo)
+    {
+        float percent = 0;
+        float turnSpeed = 1 / turnTime;
+        Quaternion targetRotation = Quaternion.LookRotation(rotTo);
+        while (percent < 1) {
+            percent += Time.deltaTime * turnSpeed;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, percent);
+            yield return null;
+        }
+    }
+
     private void Update()
     {
         Vector3 latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         velocity = latestInput * movementSpeed;
+
         Globals.PlayerPosition = gameObject.transform.position;
         Globals.PlayerNextPosition = gameObject.transform.position + velocity;
 
-        if (latestInput != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(latestInput);
+        if ((latestInput != Vector3.zero) && (latestInput - lastInput) != Vector3.zero) {
+            StartCoroutine(Rotate(latestInput));
+        }
 
         
         Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -39,18 +64,21 @@ public class Player : Entity
         // intersect with a plane at the same level as the gun to fix a weird parallax issue
         Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
 
-        Debug.DrawRay(mouseRay.origin, mouseRay.direction, Color.red);
 
         if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection)) {
             Vector3 hit = mouseRay.GetPoint(distanceToIntersection);
             gunController.Aim(hit);
         }
 
+        Debug.DrawRay(mouseRay.origin, mouseRay.direction * distanceToIntersection, Color.red);
+
         if (Input.GetMouseButton(0)) { gunController.TriggerHeld(); }
 
         if (Input.GetMouseButtonUp(0)) { gunController.TriggerReleased(); }
 
         if (Input.GetKeyDown(KeyCode.R)) { gunController.Reload(); }
+
+        lastInput = latestInput;
     }
 
     private void FixedUpdate()

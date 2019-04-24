@@ -2,15 +2,13 @@
 
 public class Entity : MonoBehaviour
 {
-
-    //Initial health for an Entity
-    [Range(0, 100)]
-    public float initialHealth;
+    const float initialHealth = 100;
 
     //Current health for an Entity
-    public float currentHealth;
+    public float currentHealth = 100;
 
     //If an Entity is alive or not
+    [System.NonSerialized]
     public bool dead;
 
     //Event for when the Entity dies (Player and Enemy are subscribed)

@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008517173356692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 0, z: 4.334}
+  m_LocalPosition: {x: 0.9, y: 0, z: -0.661}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,11 +108,14 @@ MonoBehaviour:
   collidable:
     serializedVersion: 2
     m_Bits: 3584
-  trailColour: {r: 0.98039216, g: 0.9764706, b: 0.38431373, a: 0}
+  bounceable:
+    serializedVersion: 2
+    m_Bits: 512
+  trailColour: {r: 1, g: 0.9934211, b: 0, a: 1}
   trailDuration: 0.05
   speed: 35
   lifetime: 3
-  damage: 0
+  gunDamageAmount: 0
   maxBounces: 100
 --- !u!96 &96339209710510966
 TrailRenderer:

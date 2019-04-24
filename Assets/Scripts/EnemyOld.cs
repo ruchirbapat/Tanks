@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿#if true
+using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(BoxCollider))]
 
-public class Enemy : Entity
+public class EnemyOld : Entity
 {
 
     private Player player;
@@ -52,7 +53,7 @@ public class Enemy : Entity
         gunController = GetComponentInChildren<GunController>();
 
         deathParticleSystem.GetComponent<Renderer>().sharedMaterial.color = gameObject.GetComponent<Renderer>().material.color;
-
+        
         if (!player.dead) { StartCoroutine(Chase()); currentAction = Action.Chasing; } else { agent.destination = Globals.RandomPointOnCircle(new Vector3(0, transform.position.y, 0), 50); }
     }
 
@@ -124,3 +125,4 @@ public class Enemy : Entity
         }
     }
 }
+#endif

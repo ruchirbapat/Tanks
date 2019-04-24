@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
 
     public LayerMask collidable;
-    public static int bounceable;
+    public LayerMask bounceable;
     public Color trailColour;
     public float trailDuration;
     public float speed = 10;
@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        bounceable = GameObject.FindGameObjectsWithTag("Environment")[0].gameObject.layer;
+        //bounceable = GameObject.FindGameObjectsWithTag("Environment")[0].gameObject.layer;
     }
 
     private void Start()
@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
         //if (Physics.Raycast(ray, out hit, vel + skin, collidable, QueryTriggerInteraction.Collide)) {
-        if (Physics.Raycast(ray, out hit, (velocity + skin), collidable)) {
+        if (Physics.Raycast(ray, out hit, velocity + skin, collidable)) {
             //HitObject(hit.collider, hit.point);
             HitObject(hit);
         }
