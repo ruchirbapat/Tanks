@@ -57,12 +57,11 @@ public class Enemy : Entity
     {
         currentTask = CurrentTask.BeDead;
     }
-    
+
     IEnumerator Attack()
     {
         while(player != null) {
-
-            gunController.Aim(player.transform.position);
+            
             Ray ray = new Ray(transform.position, player.transform.position - transform.position);
             RaycastHit hit;
             Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
@@ -70,11 +69,16 @@ public class Enemy : Entity
             if (!Physics.Raycast(ray, out hit, 1000, collideMask)) {
                 print("hitting player");
                 //direct line of sight to player
+                gunController.Aim(player.transform.position);
                 gunController.TriggerHeld();
             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             yield return null;
+=======
+            yield return 0 ;
+>>>>>>> parent of e0fce9d... Updated to Unity 2019
         }
     }
 
