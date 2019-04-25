@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
     private void ShootGun()
     {
         if ((!reloading) && (Time.time > nextShot) && (bulletsLeft > 0)) {
-            nextShot = Time.time + shotDelay / 1000;
+            nextShot = Time.time + shotDelay / 100;
             bulletsLeft--;
             Bullet b = Instantiate(bullet, shootExitPoint.position, shootExitPoint.rotation) as Bullet;
             b.gunDamageAmount = damage;
