@@ -23,7 +23,7 @@ public class GunController : MonoBehaviour
 
     public void TriggerHeld()
     {
-        if (gun != null) { gun.Shoot(); }
+        if (gun != null) { gun.TriggerHeld(); }
     }
 
     public void TriggerReleased()

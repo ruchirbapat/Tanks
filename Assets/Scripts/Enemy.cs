@@ -10,9 +10,6 @@ public class Enemy : Entity
     private Player player;
     private NavMeshAgent navAgent;
     private GunController gunController;
-    private Quaternion targetRotation;
-    private bool reachedRot = true;
-    private float rotPercent = 0;
 
     public enum CurrentTask { Idle, Hunting, Aiming, Shooting, BeDead }
     private CurrentTask currentTask;
@@ -21,26 +18,28 @@ public class Enemy : Entity
     public float moveSpeed;
     public float turningSpeed;
 
-    [Header("AI")]
+    [Header("AI Properties")]
     [Range(1, 10)]
     public int intelligence;
 
+<<<<<<< HEAD
     [Header("Other Attributes")]
     public LayerMask collideMask;
+=======
+    // Initialise values (once per script)
+    void Awake() {
+        
+    }
+>>>>>>> parent of 1a9f3de... Hate AI
 
     // Start is called before the first frame update
-    protected override void Start()
-    {
+    protected override void Start() {
         base.Start();
         player = FindObjectOfType<Player>();
         navAgent = GetComponent<NavMeshAgent>();
-        if (moveSpeed == 0)
-            navAgent.enabled = false;
-        else {
-            navAgent.speed = moveSpeed;
-            navAgent.angularSpeed = turningSpeed;
-        }
         gunController = GetComponentInChildren<GunController>();
+        navAgent.speed = moveSpeed;
+        navAgent.angularSpeed = turningSpeed;
         OnDeath += OnEnemyDeath;
         currentTask = CurrentTask.Idle;
 
@@ -74,6 +73,7 @@ public class Enemy : Entity
                 gunController.TriggerHeld();
             }
 
+<<<<<<< HEAD
             yield return null;
         }
     }
@@ -103,42 +103,28 @@ public class Enemy : Entity
         
     }
 
+=======
+>>>>>>> parent of 1a9f3de... Hate AI
     void OnEnemyDeath()
     {
         currentTask = CurrentTask.BeDead;
     }
 
-    IEnumerator AttackEnum(float waitTime, float turnTime)
+    IEnumerator Attack()
     {
-        while(player != null) {
-            if(currentTask != CurrentTask.BeDead) {
-                Ray ray = new Ray(transform.position, player.transform.position - transform.position);
-                RaycastHit hit;
-                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+        Ray ray = new Ray(transform.position, player.transform.position - transform.position);
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+        //if (Physics.Raycast(ray, out hit, vel + skin, collidable, QueryTriggerInteraction.Collide)) {
 
-                if (!Physics.Raycast(ray, out hit, 1000, collideMask)) {
-                    //direct line of sight to player
-                    gunController.Aim(player.transform.position);
-                    gunController.TriggerHeld();
-                } else {
-                    float turnRate = 1 / turnTime;
-                    if (!reachedRot) {
-                        rotPercent += (Time.deltaTime * turnRate);
-                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotPercent);
-                        if (Quaternion.Angle(transform.rotation, targetRotation) < 1) {
-                            reachedRot = true;
-                        }
-                    } else {
-                        targetRotation = Random.rotation;
-                        reachedRot = false;
-                        yield return new WaitForSeconds(waitTime);
-                    }
+        if (!Physics.Raycast(ray, out hit, 1000, 9)) {
+            // direct line of sight to player
+            gunController.Aim(player.transform.position);
+            gunController.TriggerHeld();
 
-                }
-            }
-
-            yield return new WaitForSeconds(0.166f);
         }
+
+        yield return null;
     }
 
     IEnumerator Chase()
@@ -147,21 +133,40 @@ public class Enemy : Entity
         yield return null;
     }
 
-    IEnumerator TurnToRandomPoint(float turnTime, float waitTime)
+    // Update is called once per frame
+    void Update()
     {
-        float turnRate = 1 / turnTime;
-        if (!reachedRot) {
-            rotPercent += (Time.deltaTime * turnRate);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotPercent);
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 1) {
-                reachedRot = true;
-            }
-        } else {
-            targetRotation = Random.rotation;
-            reachedRot = false;
-            yield return new WaitForSeconds(waitTime);
+        switch(intelligence) {
+            case 1:
+                StartCoroutine(Attack());
+                break;
+            case 2:
+                StartCoroutine(Chase());
+                StartCoroutine(Attack());
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            default:
+                break;
         }
     }
+<<<<<<< HEAD
 #endif
 
+=======
+>>>>>>> parent of 1a9f3de... Hate AI
 }
