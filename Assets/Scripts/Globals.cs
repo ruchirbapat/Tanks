@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public static class Globals
 {
@@ -8,7 +9,7 @@ public static class Globals
     public static Vector3 PlayerNextPosition { get { return _playerNextPostition; } set { _playerNextPostition = value; } }
     public static Vector3 RandomPointOnCircle(Vector3 center, float radius)
     {
-        float angle = Random.value * 360;
+        float angle = UnityEngine.Random.value * 360;
 
         Vector3 pos = Vector3.zero;
 
@@ -17,5 +18,15 @@ public static class Globals
         pos.y = center.y;
 
         return pos;
+    }
+    public const int EnvironmentLayer = 9;
+    public static float InvSqrt(float x)
+    {
+        float xhalf = 0.5f * x;
+        int i = BitConverter.ToInt32(BitConverter.GetBytes(x), 0);
+        i = 0x5f3759df - (i >> 1);
+        x = BitConverter.ToSingle(BitConverter.GetBytes(i), 0);
+        x = x * (1.5f - xhalf * x * x);
+        return x;
     }
 }

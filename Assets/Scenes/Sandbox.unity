@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
-=======
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
->>>>>>> parent of 1a9f3de... Hate AI
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -58,11 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-<<<<<<< HEAD
     serializedVersion: 12
-=======
-    serializedVersion: 10
->>>>>>> parent of 1a9f3de... Hate AI
     m_Resolution: 2
     m_BakeResolution: 40
     m_AtlasSize: 1024
@@ -85,7 +77,6 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-<<<<<<< HEAD
     m_PVREnvironmentSampleCount: 500
     m_PVREnvironmentReferencePointCount: 2048
     m_PVRFilteringMode: 2
@@ -96,12 +87,6 @@ LightmapSettings:
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
     m_PVREnvironmentMIS: 0
-=======
-    m_PVRFilterTypeDirect: 0
-    m_PVRFilterTypeIndirect: 0
-    m_PVRFilterTypeAO: 0
-    m_PVRFilteringMode: 1
->>>>>>> parent of 1a9f3de... Hate AI
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
@@ -110,10 +95,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-<<<<<<< HEAD
     m_ExportTrainingData: 0
-=======
->>>>>>> parent of 1a9f3de... Hate AI
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -275,11 +257,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -334,16 +312,10 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
-<<<<<<< HEAD
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-=======
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
->>>>>>> parent of 1a9f3de... Hate AI
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -509,7 +481,7 @@ Transform:
   m_LocalScale: {x: 0.013599998, y: 0.013599998, z: 0.013599999}
   m_Children: []
   m_Father: {fileID: 164278110}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &114922651
 MeshRenderer:
@@ -539,11 +511,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -590,7 +558,7 @@ Transform:
   m_LocalScale: {x: 0.013599998, y: 0.013599998, z: 0.013599999}
   m_Children: []
   m_Father: {fileID: 2068499002}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &146998219
 MeshRenderer:
@@ -620,11 +588,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -671,9 +635,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 1852601490}
   - {fileID: 1191265795}
   - {fileID: 114922650}
+  - {fileID: 1852601490}
   m_Father: {fileID: 2057598996}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -718,11 +682,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -864,9 +824,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireMode: 0
-  bullet: {fileID: 114780831435384728, guid: f5a4626bdd9cbf34d9fce4d68665ded5, type: 3}
+  bullet: {fileID: 0}
   magazineSize: 5
-  shell: {fileID: 114710530505646858, guid: 144d01095bef53d4d90f8bc89f2e2c8c, type: 3}
+  shell: {fileID: 0}
   damage: 1
   shotDelay: 15
   fireIntensity: 35
@@ -1152,11 +1112,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1225,6 +1181,9 @@ MonoBehaviour:
   moveSpeed: 8
   turningSpeed: 0
   intelligence: 1
+  collideMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!195 &530193637
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1304,11 +1263,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1401,11 +1356,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1448,12 +1399,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761972907}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.7}
-  m_LocalScale: {x: 0.34, y: 0.34, z: 3.6235502}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 4}
   m_Children: []
   m_Father: {fileID: 2068499002}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &761972909
 BoxCollider:
@@ -1496,11 +1447,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1592,11 +1539,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1665,14 +1608,10 @@ MonoBehaviour:
   currentHealth: 0
   moveSpeed: 7
   turningSpeed: 120
-<<<<<<< HEAD
   intelligence: 1
   collideMask:
     serializedVersion: 2
     m_Bits: 1536
-=======
-  intelligence: 2
->>>>>>> parent of 1a9f3de... Hate AI
 --- !u!65 &789620065
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1684,8 +1623,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5, z: 1}
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Size: {x: 1, y: 1.5, z: 2.5}
+  m_Center: {x: 0, y: 0.25, z: 0.75}
 --- !u!23 &789620066
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1714,11 +1653,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1833,11 +1768,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1929,11 +1860,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1994,7 +1921,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921256213}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.025, y: 0.75, z: -1.7543918}
+  m_LocalPosition: {x: 5.07, y: 0.75, z: -1.7543918}
   m_LocalScale: {x: 1, y: 1.5, z: 11.912}
   m_Children: []
   m_Father: {fileID: 380675570}
@@ -2020,7 +1947,6 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921256213}
-<<<<<<< HEAD
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -2114,8 +2040,6 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012217991}
-=======
->>>>>>> parent of 1a9f3de... Hate AI
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -2137,11 +2061,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2156,31 +2076,9 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1012217991}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1059903975
-=======
-  m_GameObject: {fileID: 921256213}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!208 &921256218
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921256213}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
---- !u!1 &1012217991
->>>>>>> parent of 1a9f3de... Hate AI
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2205,17 +2103,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1059903975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 0.4, y: 0.4, z: 4}
-=======
-  m_GameObject: {fileID: 1012217991}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.01}
-  m_LocalScale: {x: 0.99, y: 0.99, z: 0.99}
->>>>>>> parent of 1a9f3de... Hate AI
   m_Children: []
   m_Father: {fileID: 93078712}
   m_RootOrder: 2
@@ -2239,11 +2130,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1059903975}
-=======
-  m_GameObject: {fileID: 1012217991}
->>>>>>> parent of 1a9f3de... Hate AI
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -2265,11 +2152,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2284,11 +2167,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1059903975}
-=======
-  m_GameObject: {fileID: 1012217991}
->>>>>>> parent of 1a9f3de... Hate AI
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1067232503
 GameObject:
@@ -2350,11 +2229,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2448,11 +2323,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2643,7 +2514,7 @@ Transform:
   m_LocalScale: {x: 0.013601701, y: 0.013601701, z: 0.013601701}
   m_Children: []
   m_Father: {fileID: 164278110}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1191265796
 MeshRenderer:
@@ -2673,11 +2544,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2720,11 +2587,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278919633}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.976}
+  m_LocalPosition: {x: 0, y: 0, z: 4.5}
   m_LocalScale: {x: 0.013601701, y: 0.013601701, z: 0.013601701}
   m_Children: []
   m_Father: {fileID: 2068499002}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1278919635
 MeshRenderer:
@@ -2754,11 +2621,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2794,57 +2657,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
-=======
---- !u!54 &1341328970
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341328969}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 0
---- !u!114 &1341328971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341328969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafbe9ae8f9e43f4bbbb5c216bc5382c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  mainCamera: {fileID: 79315453}
-  movementSpeed: 9.41
-  turnTime: 1
---- !u!208 &1341328972
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341328969}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.75, z: 1.15}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.25, z: 0.62}
-  m_TimeToStationary: 0.5
->>>>>>> parent of 1a9f3de... Hate AI
 --- !u!65 &1341328973
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2856,8 +2668,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5, z: 1}
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Size: {x: 1, y: 1.5, z: 2.5}
+  m_Center: {x: 0, y: 0.25, z: 0.75}
 --- !u!23 &1341328974
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2886,11 +2698,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2983,11 +2791,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3221,12 +3025,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852601489}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.7}
-  m_LocalScale: {x: 0.34, y: 0.34, z: 3.6235502}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 4}
   m_Children: []
   m_Father: {fileID: 164278110}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1852601491
 BoxCollider:
@@ -3237,7 +3041,7 @@ BoxCollider:
   m_GameObject: {fileID: 1852601489}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3269,11 +3073,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3364,11 +3164,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3538,11 +3334,7 @@ MonoBehaviour:
   magazineSize: 5
   shell: {fileID: 114710530505646858, guid: 144d01095bef53d4d90f8bc89f2e2c8c, type: 3}
   damage: 1
-<<<<<<< HEAD
   shotDelay: 1
-=======
-  shotDelay: 15
->>>>>>> parent of 1a9f3de... Hate AI
   fireIntensity: 35
   reloadTime: 0.5
   shootExitPoint: {fileID: 1191265795}
@@ -3607,11 +3399,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD
   m_StitchLightmapSeams: 1
-=======
-  m_StitchLightmapSeams: 0
->>>>>>> parent of 1a9f3de... Hate AI
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3639,9 +3427,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 761972908}
   - {fileID: 1278919634}
   - {fileID: 146998218}
+  - {fileID: 761972908}
   m_Father: {fileID: 1163079687}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
