@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,13 +26,14 @@ public class Enemy : Entity
     [Range(1, 10)]
     public int intelligence;
 
+    int[] cantMove = new int[] { 1, 2 };
+    int[] shootDirectly = new int[] { 1, 2, 3, 4 };
+    int[] shootNext = new int[] { 5, 6 };
+    int[] shoot1Bounce = new int[] { 7, 8 };
+    int[] shoot2Bounce = new int[] { 9, 10 };
+
     [Header("Other Attributes")]
     public LayerMask collideMask;
-
-    // Initialise values (once per script)
-    void Awake() {
-        
-    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -50,28 +52,60 @@ public class Enemy : Entity
         currentTask = CurrentTask.Idle;
     }
 
-    void Attack()
-    {
-        currentTask = CurrentTask.Shooting;
-        Ray ray = new Ray(transform.position, player.transform.position - transform.position);
-        RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-
-        if (!Physics.Raycast(ray, out hit, 1000, collideMask)) {
-            //direct line of sight to player
-            gunController.TriggerHeld();
-        } else {
-            //do something
-        }
-    }
-
     private void Update()
     {
         gunController.Aim(player.transform.position);
-        navAgent.SetDestination(player.transform.position);
+        Ray ray = new Ray(transform.position, player.transform.position - transform.position);
+        RaycastHit hit;
 
-        Attack();
-        
+        bool hitsomething = Physics.Raycast(ray, out hit, Vector3.Distance(player.transform.position, transform.position), collideMask);
+        if (hitsomething) { 
+            print(hit.collider.gameObject.layer);
+    }
+
+        Debug.DrawRay(ray.origin, ray.direction * Vector3.Distance(player.transform.position, transform.position), hitsomething ? Color.green : Color.red);
+#if false
+        if(!directLineOfSightPossible && !cantMove.Contains(intelligence)) {
+            //chase
+        }
+        if(cantMove.Contains(intelligence)) {
+            switch(intelligence) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+        } else {
+            navAgent.SetDestination(player.transform.position);
+        }
+
+        switch (intelligence) {
+            case 1:
+                gunController.TriggerHeld();
+                break;
+            case 2:
+                gunController.Aim(Globals.PlayerNextPosition);
+                break;
+            default: break;
+        }
+
+#endif
+        if (!hitsomething) {
+            //direct line of sight to player
+            switch(intelligence) {
+                case 1:
+                    gunController.TriggerHeld();
+                    break;
+                case 2:
+                    gunController.Aim(Globals.PlayerNextPosition);
+                    gunController.TriggerHeld();
+                    break;
+                default: break;
+            }
+
+        } else {
+            navAgent.SetDestination(player.transform.position);
+        }
     }
 
     void OnEnemyDeath()
@@ -79,60 +113,4 @@ public class Enemy : Entity
         currentTask = CurrentTask.BeDead;
     }
 
-    IEnumerator AttackEnum(float waitTime, float turnTime)
-    {
-        while(player != null) {
-            if(currentTask != CurrentTask.BeDead) {
-                Ray ray = new Ray(transform.position, player.transform.position - transform.position);
-                RaycastHit hit;
-                Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
-
-                if (!Physics.Raycast(ray, out hit, 1000, collideMask)) {
-                    //direct line of sight to player
-                    gunController.Aim(player.transform.position);
-                    gunController.TriggerHeld();
-                } else {
-                    float turnRate = 1 / turnTime;
-                    if (!reachedRot) {
-                        rotPercent += (Time.deltaTime * turnRate);
-                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotPercent);
-                        if (Quaternion.Angle(transform.rotation, targetRotation) < 1) {
-                            reachedRot = true;
-                        }
-                    } else {
-                        targetRotation = Random.rotation;
-                        reachedRot = false;
-                        yield return new WaitForSeconds(waitTime);
-                    }
-
-                }
-            }
-
-            yield return new WaitForSeconds(0.166f);
-        }
-    }
-
-    IEnumerator Chase()
-    {
-        navAgent.SetDestination(player.transform.position);
-        yield return null;
-    }
-
-    IEnumerator TurnToRandomPoint(float turnTime, float waitTime)
-    {
-        float turnRate = 1 / turnTime;
-        if (!reachedRot) {
-            rotPercent += (Time.deltaTime * turnRate);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotPercent);
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 1) {
-                reachedRot = true;
-            }
-        } else {
-            targetRotation = Random.rotation;
-            reachedRot = false;
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-
-    
 }

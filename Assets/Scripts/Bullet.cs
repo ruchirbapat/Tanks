@@ -67,12 +67,12 @@ public class Bullet : MonoBehaviour
     {
         if (hit.collider.gameObject.layer == bounceable) {
 
-            if (bounces < maxBounces) {
-                gameObject.transform.forward = Vector3.Reflect((hit.point - gameObject.transform.position), hit.normal);
-                bounces++;
+            if (bounces >= maxBounces) {
+                Destroy(this);
                 //speed -= 9;
             } else {
-                Destroy(this);
+                bounces++;
+                gameObject.transform.forward = Vector3.Reflect((hit.point - gameObject.transform.position), hit.normal);
             }
 
         } else {
@@ -85,12 +85,4 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    /*private void HitObject(Collider collider, Vector3 hitPoint) {
-        
-    }*/
-
-    private static void ReflectBullet(Vector2 velocity, Vector2 normal)
-    {
-        //return
-    }
 }

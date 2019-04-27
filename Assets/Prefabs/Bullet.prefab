@@ -107,10 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collidable:
     serializedVersion: 2
-    m_Bits: 3584
-  bounceable:
-    serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 11776
   trailColour: {r: 1, g: 0.9934211, b: 0, a: 1}
   trailDuration: 0.05
   speed: 35

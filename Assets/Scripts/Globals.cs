@@ -20,13 +20,18 @@ public static class Globals
         return pos;
     }
     public const int EnvironmentLayer = 9;
-    public static float InvSqrt(float x)
+    public static float FastInvSqrt(float x)
     {
         float xhalf = 0.5f * x;
         int i = BitConverter.ToInt32(BitConverter.GetBytes(x), 0);
         i = 0x5f3759df - (i >> 1);
         x = BitConverter.ToSingle(BitConverter.GetBytes(i), 0);
         x = x * (1.5f - xhalf * x * x);
-        return x;
+        return Mathf.Pow(x, -1);
+    }
+    public static float FastSqrt(float x)
+    {
+        float newX = x - 1;
+        return 1 + (newX / 2) - (Mathf.Pow(newX, 2) / 8) + (Mathf.Pow(newX, 3) / 16) - ((5 * Mathf.Pow(newX, 4)) / 128) + ((7 * Mathf.Pow(newX, 5)) / 256);
     }
 }

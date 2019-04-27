@@ -2,7 +2,6 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(GunController))]
 public class Player : Entity
 {
 
@@ -17,10 +16,15 @@ public class Player : Entity
 
     private Quaternion targetRotation;
     private Vector3 lastInput;
+    private Vector3 latestInput;
 
     private float smoothInputMagnitude;
     private float smoothMoveVelocity;
     private float angle;
+    private bool rotating = false;
+
+    public GameObject body;
+    public LayerMask mouseMask;
 
     protected void Awake()
     {
@@ -37,7 +41,7 @@ public class Player : Entity
         //angle = Vector3.zero;
     }
 
-    IEnumerator Rotate(Vector3 rotTo)
+    IEnumerator Turn(float turnTime, Vector3 rotTo)
     {
         float percent = 0;
         float turnSpeed = 1 / turnTime;
@@ -47,36 +51,21 @@ public class Player : Entity
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, percent);
             yield return null;
         }
+        rotating = false;
     }
 
     private void Update()
     {
 
+        latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-        Vector3 latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-        velocity = latestInput * movementSpeed;
-
-        Globals.PlayerPosition = gameObject.transform.position;
-        Globals.PlayerNextPosition = gameObject.transform.position + velocity;
-
+#if false
         if ((latestInput != Vector3.zero) && (latestInput - lastInput) != Vector3.zero) {
             StartCoroutine(Rotate(latestInput));
         }
+#endif
 
-        Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-        float distanceToIntersection;
-
-        // intersect with a plane at the same level as the gun to fix a weird parallax issue
-        Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
-
-        if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection)) {
-            Vector3 hit = mouseRay.GetPoint(distanceToIntersection);
-            gunController.Aim(hit);
-        }
-
-        Debug.DrawRay(mouseRay.origin, mouseRay.direction * distanceToIntersection, Color.red);
-
-        if (Input.GetMouseButton(0)) { gunController.TriggerHeld(); }
+        if (Input.GetMouseButtonDown(0)) { gunController.TriggerHeld(); }
 
         if (Input.GetMouseButtonUp(0)) { gunController.TriggerReleased(); }
 
@@ -87,7 +76,33 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-        attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
+
+        Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+        //float distanceToIntersection;
+
+        // intersect with a plane at the same level as the gun to fix a weird parallax issue
+        //Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(mouseRay, out hit, 1000, mouseMask)) {
+            Vector3 pt = hit.point;
+            gunController.Aim(pt);
+        }
+
+
+        Debug.DrawRay(mouseRay.origin, mouseRay.direction * 1000, Color.red);
+        if (!rotating) {
+            velocity = latestInput * movementSpeed;
+
+            Globals.PlayerPosition = gameObject.transform.position;
+            Globals.PlayerNextPosition = gameObject.transform.position + (velocity * Time.fixedDeltaTime) + velocity;
+
+            attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
+        } else {
+            rotating = true;
+            StartCoroutine(Turn(2, latestInput));
+        }
     }
 
     //Overrided TakeHit incase I decide Player should have particle system too

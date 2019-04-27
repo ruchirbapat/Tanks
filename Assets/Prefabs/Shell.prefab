@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedRigidbody: {fileID: 54996362841838858}
-  forceMin: 175
+  forceMin: 150
   forceMax: 120
   lifetime: 2
   fadetime: 0.5
