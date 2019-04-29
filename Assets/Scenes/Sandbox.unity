@@ -389,7 +389,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.57
+  orthographic size: 12.84
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -412,13 +412,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 79315451}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 10.18, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &146998217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,12 +1219,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
-  moveSpeed: 7
+  moveSpeed: 5
   turningSpeed: 120
-  intelligence: 1
+  intelligence: 2
   collideMask:
     serializedVersion: 2
     m_Bits: 1536
+  maxCloseness: 0
 --- !u!195 &1094995038
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2129,7 +2130,7 @@ MonoBehaviour:
   shell: {fileID: 114710530505646858, guid: 144d01095bef53d4d90f8bc89f2e2c8c, type: 3}
   damage: 0
   shotDelay: 15
-  fireIntensity: 35
+  fireIntensity: 12.5
   reloadTime: 0.5
   shootExitPoint: {fileID: 1504902672}
   shellExitPoint: {fileID: 1136725686}
