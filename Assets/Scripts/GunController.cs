@@ -1,5 +1,36 @@
 ﻿using UnityEngine;
 
+class GunController : MonoBehaviour
+{
+    private Gun gun;
+    public Gun Gun { get { return gun; } }
+
+    private void Awake()
+    {
+        gun = GetComponent<Gun>();
+    }
+
+    public void Shoot()
+    {
+        gun.Shoot();
+    }
+
+    public void ReleaseTrigger() { gun.triggerReleasedLastFrame = true; }
+    public void Aim(Vector3 point)
+    {
+        if (gun != null) {
+            gun.transform.LookAt(new Vector3(point.x, gun.transform.position.y, point.z));
+        }
+    }
+    public void TriggerHeld() { }
+
+
+}
+
+
+#if false
+using UnityEngine;
+
 [RequireComponent(typeof(Gun))]
 public class GunController : MonoBehaviour
 {
@@ -34,3 +65,4 @@ public class GunController : MonoBehaviour
     }
 
 }
+#endif

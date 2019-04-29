@@ -76,10 +76,10 @@ public class Bullet : MonoBehaviour
             }
 
         } else {
-            if (hit.collider.gameObject.GetComponent<Player>() != null) {
-                hit.collider.gameObject.GetComponent<Player>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
-            } else if (hit.collider.gameObject.GetComponent<Enemy>() != null) {
-                hit.collider.gameObject.GetComponent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
+            if (hit.collider.gameObject.layer == Globals.PlayerLayer) {
+                hit.collider.gameObject.GetComponentInParent<Player>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
+            } else if (hit.collider.gameObject.layer == Globals.EnemyLayer) {
+                hit.collider.gameObject.GetComponentInParent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
             }
             Destroy(gameObject);
         }

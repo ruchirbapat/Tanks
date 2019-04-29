@@ -15,7 +15,6 @@ public class Player : Entity
     public float turnTime;
 
     private Quaternion targetRotation;
-    private Vector3 lastInput;
     private Vector3 latestInput;
 
     private float smoothInputMagnitude;
@@ -59,27 +58,21 @@ public class Player : Entity
 
         latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
-        if(Input.GetMouseButtonDown(0)) {
-            Debug.LogWarning("mouse was pressed");
-        } else if (Input.GetMouseButton(0)) {
-            Debug.LogWarning("mouse pressed");
-        } else if (Input.GetMouseButtonUp(0)) {
-            Debug.LogWarning("mouse was released");
-        } else {
-            Debug.LogWarning("mouse not pressed");
+        if(Input.GetMouseButton(0)) {
+            gunController.Shoot();
+        }
+        if(Input.GetMouseButtonUp(0)) {
+            gunController.ReleaseTrigger();
         }
 
-        if(Input.GetMouseButtonDown(0)) {
-            
-        }
-
+#if false
         if (Input.GetMouseButtonDown(0)) { gunController.TriggerHeld(); }
 
         if (Input.GetMouseButtonUp(0)) { gunController.TriggerReleased(); }
 
         if (Input.GetKeyDown(KeyCode.R)) { gunController.Reload(); }
+#endif 
 
-        lastInput = latestInput;
     }
 
     private void FixedUpdate()

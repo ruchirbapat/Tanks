@@ -96,9 +96,10 @@ public class Enemy : Entity
                 default: break;
             }
 
-            gunController.TriggerHeld();
+            gunController.Shoot();
         } else {
-            navAgent.SetDestination(player.transform.position);
+            if (navAgent.isActiveAndEnabled && (player != null))
+                navAgent.SetDestination(player.transform.position);
         }
     }
 

@@ -1,4 +1,71 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
+[RequireComponent(typeof(Gun))]
+class Gun : MonoBehaviour
+{
+    public enum GunType { Auto, Burst, SingleShot }
+
+    [Header("Fields to be filled")]
+    public Bullet bullet;
+    public Shell shell;
+    public Transform bulletExitPt;
+    public Transform shellExitPt;
+
+    [Header("General Properties")]
+    public float gunDamage;
+    public float bulletSpeed;
+    public GunType gunType;
+
+    [Header("Auto Properties")]
+    [Tooltip("Delay between shots in milliseconds (ms)")]
+    public float autoModeShotDelay;
+
+    [Header("Burst Properties")]
+    public int burstSize;
+    [Tooltip("Delay between shots in seconds (s)")]
+    public float delayBetweenBursts;
+
+    [System.NonSerialized]
+    private List<Bullet> activeBurstBullets;
+    private float nextPossibleShootTime;
+    public bool triggerReleasedLastFrame;
+
+    void Start()
+    {
+        activeBurstBullets = new List<Bullet>();
+        nextPossibleShootTime = Time.time;
+    }
+
+    public void Shoot()
+    {
+        if (gunType == GunType.Auto) {
+            if (Time.time >= nextPossibleShootTime) {
+                Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
+                b.speed = bulletSpeed;
+                b.gunDamageAmount = gunDamage;
+                nextPossibleShootTime = Time.time + (autoModeShotDelay / 1000);
+            }
+        } else if (gunType == GunType.SingleShot && triggerReleasedLastFrame) { // single shot is still broken
+            Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
+            b.speed = bulletSpeed;
+            b.gunDamageAmount = gunDamage;
+        } else if (gunType == GunType.Burst) {
+            activeBurstBullets.RemoveAll((x) => { return x == null; });
+            if ((Time.time >= nextPossibleShootTime) && (activeBurstBullets.Count < burstSize)) {
+                Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
+                b.speed = bulletSpeed;
+                b.gunDamageAmount = gunDamage;
+                activeBurstBullets.Add(b);
+                nextPossibleShootTime = Time.time + delayBetweenBursts;
+            }
+        }
+    }
+}
+
+
+#if false
+using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
@@ -83,3 +150,4 @@ public class Gun : MonoBehaviour
         Debug.Log("Trigger Released: " + triggerReleased);
     }
 }
+#endif
