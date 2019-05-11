@@ -78,18 +78,21 @@ public class Player : Entity
     private void FixedUpdate()
     {
 
+        // credits to sebastian lague for mouse code
         Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-        //float distanceToIntersection;
+        float distanceToIntersection;
 
         // intersect with a plane at the same level as the gun to fix a weird parallax issue
-        //Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
+        Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
 
         RaycastHit hit;
 
-        if (Physics.Raycast(mouseRay, out hit, 1000, mouseMask)) {
-            Vector3 pt = hit.point;
+        if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection)) {
+            Vector3 pt = mouseRay.GetPoint(distanceToIntersection); // last line of sebastian lague code for mouse ray intersection trick
+            
             gunController.Aim(pt);
         }
+
 
 
         Debug.DrawRay(mouseRay.origin, mouseRay.direction * 1000, Color.red);
