@@ -45,12 +45,17 @@ class Gun : MonoBehaviour
                 b.speed = bulletSpeed;
                 b.gunDamageAmount = gunDamage;
                 nextPossibleShootTime = Time.time + (autoModeShotDelay / 1000);
+                Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
+
             }
         } else if (gunType == GunType.SingleShot && triggerReleasedLastFrame) { // single shot is still broken
             Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
             b.speed = bulletSpeed;
             b.gunDamageAmount = gunDamage;
-        } else if (gunType == GunType.Burst) {
+            Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
+
+        }
+        else if (gunType == GunType.Burst) {
             activeBurstBullets.RemoveAll((x) => { return x == null; });
             if ((Time.time >= nextPossibleShootTime) && (activeBurstBullets.Count < burstSize)) {
                 Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
@@ -58,6 +63,8 @@ class Gun : MonoBehaviour
                 b.gunDamageAmount = gunDamage;
                 activeBurstBullets.Add(b);
                 nextPossibleShootTime = Time.time + delayBetweenBursts;
+                Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
+
             }
         }
     }
