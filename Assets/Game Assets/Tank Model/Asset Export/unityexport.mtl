@@ -1,0 +1,24 @@
+newmtl Walls
+Kd 0.8235294 0.6784314 0.4862745
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl Earth
+Kd 0.6078432 0.4862745 0.3137255
+illum 2
+
+newmtl TankColour
+Kd 0.08751589 0.4862745 0.08581315
+illum 2
+
+newmtl TankLights
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl TankGrey
+Kd 0.1282063 0.1282063 0.1282063
+illum 2
+
