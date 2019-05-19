@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008517173356692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 0, z: -0.661}
+  m_LocalPosition: {x: 0.9, y: 0.573, z: 6.212}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,7 +52,7 @@ BoxCollider:
   m_GameObject: {fileID: 1008517173356692}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -108,8 +108,8 @@ MonoBehaviour:
   collidable:
     serializedVersion: 2
     m_Bits: 11776
-  trailColour: {r: 1, g: 0.9934211, b: 0, a: 1}
-  trailDuration: 0.5
+  trailColour: {r: 1, g: 1, b: 1, a: 1}
+  trailDuration: 0.25
   speed: 35
   lifetime: 3
   gunDamageAmount: 0
@@ -132,7 +132,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 7c3f1d17e8ed09540a5940c9df9e2648, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,7 +155,7 @@ TrailRenderer:
   m_Time: 5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:

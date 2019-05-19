@@ -12,8 +12,7 @@ public class Enemy : Entity
     private NavMeshAgent navAgent;
     private GunController gunController;
     private Quaternion targetRotation;
-    private bool reachedRot = true;
-    private float rotPercent = 0;
+    private float halfHeight;
 
     public enum CurrentTask { Idle, Hunting, Aiming, Shooting, BeDead }
     private CurrentTask currentTask;
@@ -51,12 +50,13 @@ public class Enemy : Entity
         gunController = GetComponentInChildren<GunController>();
         OnDeath += OnEnemyDeath;
         currentTask = CurrentTask.Idle;
+        halfHeight = GetComponent<BoxCollider>().size.y / 2;
     }
 
     private void Update()
     {
         gunController.Aim(player.transform.position);
-        Ray ray = new Ray(transform.position, player.transform.position - transform.position);
+        Ray ray = new Ray(transform.position, new Vector3(player.transform.position.x, transform.position.y + halfHeight, player.transform.position.z) - new Vector3(transform.position.x, transform.position.y + halfHeight, transform.position.z));
         RaycastHit hit;
 
         bool directLineofSight = !Physics.Raycast(ray, out hit, Vector3.Distance(player.transform.position, transform.position), collideMask);
