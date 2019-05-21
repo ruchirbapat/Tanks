@@ -103,7 +103,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-            attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
+           attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
            attachedRigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
     }
 

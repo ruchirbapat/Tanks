@@ -13,15 +13,28 @@ public class Bullet : MonoBehaviour
     public float gunDamageAmount;
     public int maxBounces;
     private int bounces = 0;
+    private CameraShake camShake;
+    private float instantiateTime;
+    private float deathTime;
+
 
     private void Awake()
     {
         bounceable = GameObject.FindGameObjectsWithTag("Environment")[0].gameObject.layer;
     }
+    
+    void DeleteBullet()
+    {
+        Destroy(gameObject);
+        Camera.main.GetComponent<CameraShake>().Shake();
+    }
 
     private void Start()
     {
-        Destroy(gameObject, lifetime);
+        //Destroy(gameObject, lifetime);
+
+        instantiateTime = Time.time;
+        deathTime = instantiateTime + (lifetime);
 
         /*Collider[] collisions = Physics.OverlapSphere(transform.position, skin, collidable);
         if (collisions.Length > 0)
@@ -33,6 +46,9 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
+        if (Time.time > deathTime)
+            DeleteBullet();
+
         float velocity = speed * Time.deltaTime;
         CheckForCollisions(velocity);
         transform.Translate(Vector3.forward * velocity);
@@ -50,25 +66,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    /*private void HitObject(Collider collider, Vector3 hitPoint) {
-        if (collider.gameObject.GetComponent<Player>() != null)
-        {
-            collider.gameObject.GetComponent<Player>().TakeHit(damage, hitPoint);
-        }
-        else if (collider.gameObject.GetComponent<Enemy>() != null)
-        {
-            collider.gameObject.GetComponent<Enemy>().Damage(damage);
-        }
-
-        Destroy(gameObject);
-    }*/
-
     private void HitObject(RaycastHit hit)
     {
         if (hit.collider.gameObject.layer == bounceable) {
 
             if (bounces >= maxBounces) {
-                Destroy(this);
+                DeleteBullet();
                 //speed -= 9;
             } else {
                 bounces++;
@@ -81,7 +84,7 @@ public class Bullet : MonoBehaviour
             } else if (hit.collider.gameObject.layer == Globals.EnemyLayer) {
                 hit.collider.gameObject.GetComponentInParent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
             }
-            Destroy(gameObject);
+            DeleteBullet();
         }
     }
 
