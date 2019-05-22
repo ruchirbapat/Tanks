@@ -1,4 +1,64 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.SceneManagement;
+
+
+public class GameManager : MonoBehaviour
+{
+    int currentSceneIndex = 0;
+    bool onMenu = false;
+    bool isPaused = false;
+
+    public float animationTime;
+    public GameObject ui;
+    public Image xBar;
+    public Image yBar;
+
+    void Start()
+    {
+        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(ui);
+    }
+
+    void Update()
+    {
+        if(!onMenu)
+        {
+            int enemies = FindObjectsOfType<Enemy>().Length;
+            if(enemies == 0)
+            {
+                NextLevel();
+            }
+        }
+    }
+    
+    void NextLevel()
+    {
+        SceneManager.LoadScene(++currentSceneIndex);
+        StartCoroutine(AnimateNewLevelUI(Camera.main.WorldToScreenPoint(FindObjectOfType<Player>().transform.position)));
+    }
+
+    IEnumerator AnimateNewLevelUI(Vector3 playerPos)
+    {
+        float percent = 0;
+        float speed = 1 / animationTime;
+        while(percent != 1)
+        {
+            if (percent > 1)
+                percent = 1;
+
+            xBar.transform.position = new Vector3(Mathf.Lerp(-962, playerPos.x, percent), xBar.transform.position.y, xBar.transform.position.z);
+            yBar.transform.position = new Vector3(yBar.transform.position.x, Mathf.Lerp(-542, playerPos.y, percent), yBar.transform.position.z);
+
+            percent += (Time.deltaTime * speed);
+            yield return null;
+        }
+    }
+}
+
+#if false
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,3 +141,4 @@ public class GameManager : MonoBehaviour
     }
 
 }
+#endif

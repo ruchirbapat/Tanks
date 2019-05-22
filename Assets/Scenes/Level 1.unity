@@ -5537,12 +5537,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1419974031982912530, guid: ad174147ba3556543a48270f771eadc7,
+    - target: {fileID: 1419974030552343451, guid: ad174147ba3556543a48270f771eadc7,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 1419974030552343451, guid: ad174147ba3556543a48270f771eadc7,
+    - target: {fileID: 1419974031589083345, guid: ad174147ba3556543a48270f771eadc7,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -5552,12 +5552,12 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 1419974032444371889, guid: ad174147ba3556543a48270f771eadc7,
+    - target: {fileID: 1419974031982912530, guid: ad174147ba3556543a48270f771eadc7,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: 1419974031589083345, guid: ad174147ba3556543a48270f771eadc7,
+    - target: {fileID: 1419974032444371889, guid: ad174147ba3556543a48270f771eadc7,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -10965,7 +10965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd725f1e0223eb4a9deccd5c5b94525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionText: {fileID: 406184990}
+  animationTime: 2
   ui: {fileID: 105593199}
   xBar: {fileID: 1593577653}
   yBar: {fileID: 1933872025}
@@ -11248,7 +11248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910995805}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.42, y: 0, z: 7.67}
+  m_LocalPosition: {x: -17.66, y: 0, z: -6.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1303119818}
