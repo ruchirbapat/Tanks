@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
     public Button playButton;
-
+    public TextMeshProUGUI titleText;
     Transform buttonTransform;
     Color buttonColour;
 
@@ -20,8 +21,9 @@ public class MenuManager : MonoBehaviour
     public void PlayButtonClicked()
     {
         print("clicked");
-        GetComponent<Image>().GetComponent<SpriteRenderer>().color = Color.green; 
-        //FindObjectOfType<GameManager>().NextLevel();
+        //GetComponent<Image>(). // GetComponent<SpriteRenderer>().color = Color.green; 
+        FindObjectOfType<GameManager>().NextLevel();
+        titleText.gameObject.SetActive(false);
         playButton.gameObject.SetActive(false); 
     }
 

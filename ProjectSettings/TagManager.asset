@@ -15,6 +15,7 @@ TagManager:
   - Gun
   - Barrell
   - Environment
+  - Play Button
   layers:
   - Default
   - TransparentFX

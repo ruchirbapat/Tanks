@@ -91,9 +91,6 @@ public class Player : Entity
             gunController.ReleaseTrigger();
         }
 
-        print("ScreenPos: " + Camera.main.WorldToScreenPoint(FindObjectOfType<Player>().transform.position).ToString());
-        print("ViewportPos: " + Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position).ToString());
-
 #if false
         if (Input.GetMouseButtonDown(0)) { gunController.TriggerHeld(); }
 
