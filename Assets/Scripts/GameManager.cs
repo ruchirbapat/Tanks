@@ -3,40 +3,51 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : MonoBehaviour
 {
     int currentSceneIndex = 0;
     bool onMenu = false;
     bool isPaused = false;
 
+    public int highestSceneIndex;
     public float animationTime;
-    public GameObject ui;
+    public Canvas ui;
     public Image xBar;
     public Image yBar;
 
     void Start()
     {
+        print("Game Manager START");
         DontDestroyOnLoad(this);
-        DontDestroyOnLoad(ui);
-    }
-
-    void Update()
-    {
-        if(!onMenu)
+        if (FindObjectsOfType(GetType()).Length > 1)
         {
-            int enemies = FindObjectsOfType<Enemy>().Length;
-            if(enemies == 0)
-            {
-                NextLevel();
-            }
+            Destroy(gameObject);
         }
     }
-    
-    void NextLevel()
+
+    private void Update()
     {
-        SceneManager.LoadScene(++currentSceneIndex);
-        StartCoroutine(AnimateNewLevelUI(Camera.main.WorldToScreenPoint(FindObjectOfType<Player>().transform.position)));
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            NextLevel();
+        }
+    }
+
+    public void NextLevel()
+    {
+        StartCoroutine(LevelUp());
+    }
+
+    IEnumerator LevelUp()
+    {
+        if (currentSceneIndex != highestSceneIndex)
+        {
+            SceneManager.LoadScene(++currentSceneIndex);
+            yield return null;
+            Vector3 playerScreenPos = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
+            print("scene loaded, player is at: " + playerScreenPos.ToString());
+            StartCoroutine(AnimateNewLevelUI(playerScreenPos));
+        }
     }
 
     IEnumerator AnimateNewLevelUI(Vector3 playerPos)
