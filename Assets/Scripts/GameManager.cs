@@ -5,18 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    int currentSceneIndex = 0;
+    public int currentSceneIndex = 0;
     bool onMenu = false;
     bool isPaused = false;
 
     public int highestSceneIndex;
     public float animationTime;
     public Canvas ui;
+    public GameObject gameOverUI;
     public Image xBar;
     public Image yBar;
+    public int playerMaxLives;
+    public int playerLivesLeft;
 
     void Start()
     {
+        playerLivesLeft = playerMaxLives;
         print("Game Manager START");
         DontDestroyOnLoad(this);
         if (FindObjectsOfType(GetType()).Length > 1)
@@ -29,26 +33,100 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.H))
         {
-            NextLevel();
+            ProgressLevel(true);
         }
     }
 
-    public void NextLevel()
+    IEnumerator ShowResults()
     {
-        StartCoroutine(LevelUp());
-    }
+        gameOverUI.SetActive(true);
 
-    IEnumerator LevelUp()
-    {
-        if (currentSceneIndex != highestSceneIndex)
+        float delayTime = 3f;
+        float speed = 3f;
+        float animatePercent = 0;
+
+        while (animatePercent >= 0)
         {
-            SceneManager.LoadScene(++currentSceneIndex);
+            animatePercent += Time.deltaTime * speed;
+            //need to make scalable
+            gameOverUI.GetComponent<RectTransform>().anchoredPosition = Vector2.up * Mathf.Lerp(-950, 0, animatePercent);
             yield return null;
-            Vector3 playerScreenPos = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
-            print("scene loaded, player is at: " + playerScreenPos.ToString());
-            StartCoroutine(AnimateNewLevelUI(playerScreenPos));
         }
+
+        gameOverUI.SetActive(false);
     }
+
+
+    void LoadScene(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
+
+    public void BackToMainMenu()
+    {
+        currentSceneIndex = 0;
+        playerLivesLeft = playerMaxLives;
+        LoadScene(currentSceneIndex);
+    }
+
+    public void ProgressLevel(bool playerAlive)
+    {
+        bool goingToMenu = false;
+        if(playerAlive) {
+            currentSceneIndex++;
+        } else {
+            if(playerLivesLeft <= 0) {
+                currentSceneIndex = 0;
+                goingToMenu = true;
+            }
+        }
+
+        if ((goingToMenu) || ((currentSceneIndex - 1) == highestSceneIndex))
+        {
+            StartCoroutine(ShowResults());
+        }
+        else
+        {
+            LoadScene(currentSceneIndex);
+        }
+#if false
+        Vector3 playerScreenPos = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
+        //        print("scene loaded, player is at: " + playerScreenPos.ToString());
+        StartCoroutine(AnimateNewLevelUI(playerScreenPos));
+        //StartCoroutine(HandleLevel(playerAlive));
+#endif
+    }
+
+    // It is important that this function is marked private
+    private IEnumerator HandleLevel(bool playerAlive)
+    {
+        if (!playerAlive)
+        {
+            if(playerLivesLeft <= 0)
+            {
+                StartCoroutine(ShowResults());
+                currentSceneIndex = 0;
+
+                //SceneManager.LoadScene(0); // Load menu
+                playerLivesLeft = playerMaxLives; // Reset player lives
+                playerAlive = true;
+            }
+        } else {
+            currentSceneIndex++;
+        }
+
+        currentSceneIndex = (int)Mathf.Clamp(currentSceneIndex, 0, highestSceneIndex);
+
+      //  if(current)
+
+        SceneManager.LoadScene(currentSceneIndex);
+        yield return null;
+
+        Vector3 playerScreenPos = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
+   //        print("scene loaded, player is at: " + playerScreenPos.ToString());
+        StartCoroutine(AnimateNewLevelUI(playerScreenPos));
+    }
+
 
     IEnumerator AnimateNewLevelUI(Vector3 playerPos)
     {

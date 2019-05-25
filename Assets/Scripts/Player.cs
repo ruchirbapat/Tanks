@@ -105,6 +105,15 @@ public class Player : Entity
     {
            attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
            attachedRigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
+
+
+    }
+
+    // From inherited function
+    public override void Die()
+    {
+        base.Die();
+        FindObjectOfType<GameManager>().playerLivesLeft--;
     }
 
     //Overrided TakeHit incase I decide Player should have particle system too

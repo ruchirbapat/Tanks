@@ -16,13 +16,13 @@ public class EntityTracker : MonoBehaviour
         enemiesInThisScene = FindObjectsOfType<Enemy>().Length;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if(enemiesInThisScene > 0)
+        bool playerAlive = (FindObjectOfType<Player>() != null);
+
+        if( ( (enemiesInThisScene > 0) && (FindObjectsOfType<Enemy>().Length <= 0) ) || !playerAlive)
         {
-            enemiesLeft = FindObjectsOfType<Enemy>().Length;
-            if(enemiesLeft == 0)
-                manager.NextLevel();
+            manager.ProgressLevel(playerAlive);
         }
     }
 }

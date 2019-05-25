@@ -11,18 +11,27 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI titleText;
     Transform buttonTransform;
     Color buttonColour;
+    GameManager gameManager;
 
     void Start()
     {
+        print("On Menu Screen");
+        gameManager = FindObjectOfType<GameManager>();
+
+        print("button is null: " + (playButton == null).ToString());
+
+        titleText = GameObject.FindGameObjectWithTag("Title Text").GetComponent<TextMeshProUGUI>();
+        titleText.gameObject.SetActive(true);
+
+        playButton.gameObject.SetActive(true);
         buttonTransform = playButton.transform;
-        buttonColour = playButton.GetComponent<SpriteRenderer>().color;
+   //        buttonColour = playButton.GetComponent<SpriteRenderer>().color;
     }
 
     public void PlayButtonClicked()
     {
-        print("clicked");
         //GetComponent<Image>(). // GetComponent<SpriteRenderer>().color = Color.green; 
-        FindObjectOfType<GameManager>().NextLevel();
+        FindObjectOfType<GameManager>().ProgressLevel(true);
         titleText.gameObject.SetActive(false);
         playButton.gameObject.SetActive(false); 
     }
