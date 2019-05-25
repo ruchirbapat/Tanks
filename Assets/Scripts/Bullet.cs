@@ -36,6 +36,11 @@ public class Bullet : MonoBehaviour
         instantiateTime = Time.time;
         deathTime = instantiateTime + (lifetime);
 
+        /*Collider[] collisions = Physics.OverlapSphere(transform.position, skin, collidable);
+        if (collisions.Length > 0)
+        { HitObject(collisions[0], gameObject.transform.position); }*/
+        //print("Bullet created.");
+        //GetComponent<TrailRenderer>().material.color = Color.white;
         GetComponent<TrailRenderer>().time = trailDuration;
     }
 

@@ -91,18 +91,35 @@ public class Player : Entity
             gunController.ReleaseTrigger();
         }
 
+#if false
+        if (Input.GetMouseButtonDown(0)) { gunController.TriggerHeld(); }
+
+        if (Input.GetMouseButtonUp(0)) { gunController.TriggerReleased(); }
+
+        if (Input.GetKeyDown(KeyCode.R)) { gunController.Reload(); }
+#endif 
+
     }
 
     private void FixedUpdate()
     {
            attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
            attachedRigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
+
+
     }
 
     // From inherited function
     public override void Die()
     {
         base.Die();
+        FindObjectOfType<GameManager>().playerLivesLeft--;
     }
 
+    //Overrided TakeHit incase I decide Player should have particle system too
+    /*public override void TakeHit(float damageAmount, Vector3 point, Vector3 direction)
+    {
+        Destroy(Instantiate(deathParticleSystem.gameObject, point, Quaternion.FromToRotation(Vector3.forward, direction)) as GameObject, deathParticleSystem.main.startLifetimeMultiplier);
+        base.TakeHit(damageAmount, point, direction);
+    }*/
 }
