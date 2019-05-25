@@ -37,7 +37,6 @@ public class Entity : MonoBehaviour
     //Kills an Entity
     public virtual void Die()
     {
-        dead = true;
         if (OnDeath != null) { OnDeath(); };
         Destroy(gameObject);
     }

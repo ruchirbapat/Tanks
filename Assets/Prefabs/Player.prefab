@@ -1,5 +1,56 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!54 &6420417725920996091
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042193581867217908}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6420417725920996088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042193581867217908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fcf414d5b32644ab978debfbeaa1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6420417725920996089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042193581867217908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdaa833e4f5dc24b922893618856bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 114780831435384728, guid: f5a4626bdd9cbf34d9fce4d68665ded5, type: 3}
+  shell: {fileID: 114710530505646858, guid: 144d01095bef53d4d90f8bc89f2e2c8c, type: 3}
+  bulletExitPt: {fileID: 6420417726871857028}
+  shellExitPt: {fileID: 6420417726387365208}
+  gunDamage: 100
+  bulletSpeed: 12.5
+  gunType: 1
+  autoModeShotDelay: 15
+  burstSize: 5
+  delayBetweenBursts: 0.25
+  triggerReleasedLastFrame: 0
 --- !u!1 &6420417725724563049
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,57 +137,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2922764, y: 1.4488381, z: 1.8097749}
   m_Center: {x: -0.004714012, y: 0.7337937, z: -0.058774233}
---- !u!54 &6420417725920996091
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3042193581867217908}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &6420417725920996088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3042193581867217908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1fcf414d5b32644ab978debfbeaa1dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6420417725920996089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3042193581867217908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cdaa833e4f5dc24b922893618856bb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 114780831435384728, guid: f5a4626bdd9cbf34d9fce4d68665ded5, type: 3}
-  shell: {fileID: 114710530505646858, guid: 144d01095bef53d4d90f8bc89f2e2c8c, type: 3}
-  bulletExitPt: {fileID: 6420417726871857028}
-  shellExitPt: {fileID: 6420417726387365208}
-  gunDamage: 100
-  bulletSpeed: 12.5
-  gunType: 1
-  autoModeShotDelay: 15
-  burstSize: 5
-  delayBetweenBursts: 0.25
-  triggerReleasedLastFrame: 0
 --- !u!1 &6420417726387365215
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6420417726387365215}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -9780,7 +9780,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6420417726871857051}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
