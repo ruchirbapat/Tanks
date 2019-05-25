@@ -28,4 +28,5 @@ public class CameraShake : MonoBehaviour
         StartCoroutine(ShakeCam(originalPos));
         transform.localPosition = originalPos;
     }
+
 }

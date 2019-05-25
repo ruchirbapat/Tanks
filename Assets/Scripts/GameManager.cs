@@ -1,4 +1,103 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    UIManager um;
+    public int currentScene;
+    public int ogPlayerLives;
+    public int ogEnemyCount;
+    public int playerLivesLeft;
+    public int highestScene;
+    int enemiesLeft;
+    bool gameOver = false;
+    public int enemiesKilled;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        if (um == null)
+        {
+            um = FindObjectOfType<UIManager>();
+        }
+        playerLivesLeft = ogPlayerLives;
+    }
+
+    void OnLevelWasLoaded()
+    {
+        ogEnemyCount = FindObjectsOfType<Enemy>().Length;
+    }
+
+    void Update()
+    {
+        enemiesLeft = FindObjectsOfType<Enemy>().Length;
+        bool playerAlive = (FindObjectOfType<Player>() != null);
+
+        if (!gameOver)
+        {
+            if (ogEnemyCount > 0)
+            {
+                if (enemiesLeft == 0)
+                {
+                    if (currentScene == highestScene)
+                    {
+                        gameOver = true;
+                    }
+                    else
+                    {
+                        NextLevel();
+                    }
+                }
+                else if (!playerAlive)
+                {
+                    if (playerLivesLeft > 0)
+                    {
+                        ReloadLevel();
+                    }
+                    else
+                    {
+                        gameOver = true;
+                    }
+                }
+            }
+
+            if(gameOver)
+            {
+                GameOver();
+            }
+
+        }
+    }
+
+    public void NextLevel() {
+        if (gameOver == true) { gameOver = false; };
+        currentScene++;
+        StartCoroutine(LoadSceneCoroutine());
+    }
+
+    IEnumerator LoadSceneCoroutine()
+    {
+        SceneManager.LoadScene(currentScene);
+        yield return null;
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
+        um.AnimateNewLevelBanner();
+    }
+
+    public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine()); }
+    public void LoadMenu() { /*Time.timeScale = 1f;*/ currentScene = 0; SceneManager.LoadScene(currentScene); um.ResetResults(); print("done ressetting"); }
+    public void GameOver() { print("game over"); um.AnimateResults(); /*Time.timeScale = 0f;*/ enemiesKilled = 0; }
+ 
+}
+
+#if false
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -18,6 +117,14 @@ public class GameManager : MonoBehaviour
     public int playerMaxLives;
     public int playerLivesLeft;
 
+    public int enemiesInThisScene;
+    public int enemiesLeft;
+
+    void OnLevelWasLoaded()
+    {
+        enemiesInThisScene = FindObjectsOfType<Enemy>().Length;
+    }
+
     void Start()
     {
         playerLivesLeft = playerMaxLives;
@@ -31,7 +138,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
+
+        enemiesLeft = FindObjectsOfType<Enemy>().Length;
+
+        if (((enemiesInThisScene > 0) && (enemiesLeft <= 0)) || !playerAlive)
+        {
+            print("player alive: " + playerAlive.ToString());
+            print("enemies: " + enemiesLeft.ToString());
+            manager.ProgressLevel(playerAlive);
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
         {
             ProgressLevel(true);
         }
@@ -127,7 +244,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(AnimateNewLevelUI(playerScreenPos));
     }
 
-
     IEnumerator AnimateNewLevelUI(Vector3 playerPos)
     {
         float percent = 0;
@@ -144,90 +260,5 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
-}
-
-#if false
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEditor;
-using UnityEngine.UI;
-
-public class GameManager : MonoBehaviour
-{
-    int currentLevel;
-    float enemiesAlive;
-    Texture2D tex;
-    public Text missionText;
-    public GameObject ui;
-    public Image xBar;
-    public Image yBar;
-
-    void Start()
-    {
-        DontDestroyOnLoad(this);
-        DontDestroyOnLoad(ui);
-        tex = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Cursors/Crosshair 1.png", typeof(Texture2D));
-        currentLevel = SceneManager.GetActiveScene().buildIndex + 1;
-        Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
-    }
-
-    private void OnMouseEnter()
-    {
-        Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
-    }
-
-    void OnMouseExit()
-    {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-    }
-
-    void Update()
-    {
-        enemiesAlive = GameObject.FindObjectsOfType<Enemy>().Length;
-        if(enemiesAlive <= 0)
-        {
-            LoadLevel(++currentLevel);
-        }
-        missionText.text = "Level " + currentLevel.ToString();
-    }
-
-    void LoadLevel(int level)
-    {
-        SceneManager.LoadScene("Level " + level);
-        Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(FindObjectOfType<Player>().transform.position);
-        StartCoroutine(MoveBars(playerScreenPos));
-    }
-    
-    IEnumerator MoveBars(Vector3 pos)
-    {
-        float delayTime = 2f;
-        float speed = 3f;
-        float animatePercent = 0;
-        int dir = 1;
-
-        float endDelayTime = Time.time + 1 / speed + delayTime;
-
-        while (animatePercent >= 0)
-        {
-            animatePercent += Time.deltaTime * speed * dir;
-
-            if (animatePercent >= 1)
-            {
-                animatePercent = 1;
-                if (Time.time > endDelayTime)
-                {
-                    dir = -1;
-                }
-            }
-
-            xBar.rectTransform.anchoredPosition = Vector2.right * Mathf.Lerp(-962, pos.x, animatePercent);
-            yBar.rectTransform.anchoredPosition = Vector2.down * Mathf.Lerp(542, pos.y, animatePercent);
-            yield return null;
-        }
-
-    }
-
 }
 #endif

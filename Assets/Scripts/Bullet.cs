@@ -83,6 +83,7 @@ public class Bullet : MonoBehaviour
                 hit.collider.gameObject.GetComponentInParent<Player>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
             } else if (hit.collider.gameObject.layer == Globals.EnemyLayer) {
                 hit.collider.gameObject.GetComponentInParent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
+                FindObjectOfType<GameManager>().enemiesKilled++;
             }
             DeleteBullet();
         }

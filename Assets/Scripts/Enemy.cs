@@ -25,12 +25,6 @@ public class Enemy : Entity
     [Range(1, 10)]
     public int intelligence;
 
-    int[] cantMove = new int[] { 1, 2 };
-    int[] shootDirectly = new int[] { 1, 2, 3, 4 };
-    int[] shootNext = new int[] { 5, 6 };
-    int[] shoot1Bounce = new int[] { 7, 8 };
-    int[] shoot2Bounce = new int[] { 9, 10 };
-
     [Header("Other Attributes")]
     public LayerMask collideMask;
     public float maxCloseness;
