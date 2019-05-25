@@ -16,7 +16,6 @@ TagManager:
   - Barrell
   - Environment
   - Play Button
-  - Title Text
   layers:
   - Default
   - TransparentFX
