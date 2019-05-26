@@ -105,8 +105,6 @@ public class Player : Entity
     {
            attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
            attachedRigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
-
-
     }
 
     // From inherited function

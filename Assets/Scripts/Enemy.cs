@@ -49,13 +49,15 @@ public class Enemy : Entity
 
     private void Update()
     {
-        gunController.Aim(player.transform.position);
-        Ray ray = new Ray(transform.position, new Vector3(player.transform.position.x, transform.position.y + halfHeight, player.transform.position.z) - new Vector3(transform.position.x, transform.position.y + halfHeight, transform.position.z));
-        RaycastHit hit;
+        if (player != null)
+        {
+            gunController.Aim(player.transform.position);
+            Ray ray = new Ray(transform.position, new Vector3(player.transform.position.x, transform.position.y + halfHeight, player.transform.position.z) - new Vector3(transform.position.x, transform.position.y + halfHeight, transform.position.z));
+            RaycastHit hit;
 
-        bool directLineofSight = !Physics.Raycast(ray, out hit, Vector3.Distance(player.transform.position, transform.position), collideMask);
+            bool directLineofSight = !Physics.Raycast(ray, out hit, Vector3.Distance(player.transform.position, transform.position), collideMask);
 
-        Debug.DrawRay(ray.origin, ray.direction * Vector3.Distance(player.transform.position, transform.position), directLineofSight ? Color.green : Color.red);
+            Debug.DrawRay(ray.origin, ray.direction * Vector3.Distance(player.transform.position, transform.position), directLineofSight ? Color.green : Color.red);
 #if false
         if(!directLineOfSightPossible && !cantMove.Contains(intelligence)) {
             //chase
@@ -82,18 +84,23 @@ public class Enemy : Entity
         }
 
 #endif
-        if (directLineofSight) {
-            switch(intelligence) {
-                case 2:
-                    gunController.Aim(Globals.PlayerNextPosition);
-                    break;
-                default: break;
-            }
+            if (directLineofSight)
+            {
+                switch (intelligence)
+                {
+                    case 2:
+                        gunController.Aim(Globals.PlayerNextPosition);
+                        break;
+                    default: break;
+                }
 
-            gunController.Shoot();
-        } else {
-            if (navAgent.isActiveAndEnabled && (player != null))
-                navAgent.SetDestination(player.transform.position);
+                gunController.Shoot();
+            }
+            else
+            {
+                if (navAgent.isActiveAndEnabled && (player != null))
+                    navAgent.SetDestination(player.transform.position);
+            }
         }
     }
 

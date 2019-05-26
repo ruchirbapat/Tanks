@@ -40,8 +40,7 @@ public class GameManager : MonoBehaviour
         enemiesLeft = FindObjectsOfType<Enemy>().Length;
         bool playerAlive = (FindObjectOfType<Player>() != null);
 
-        if (!gameOver)
-        {
+        if (!gameOver) {
             if (ogEnemyCount > 0)
             {
                 if (enemiesLeft == 0)
