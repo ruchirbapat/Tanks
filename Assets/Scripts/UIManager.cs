@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameManager gm;
     public GameObject missionBar;
@@ -15,6 +16,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI todayDate;
     public TextMeshProUGUI finalScore;
     public GameObject menuUI;
+    public GameObject xBar;
+    public GameObject yBar;
     public float bannerAnimSpeed;
     public float bannerAnimWaitTime;
 
@@ -66,6 +69,41 @@ public class UIManager : MonoBehaviour
         StopCoroutine(BannerAnim());
         missionBar.GetComponentInChildren<Text>().text = "Level " + (SceneManager.GetActiveScene().buildIndex).ToString();
         StartCoroutine(BannerAnim());
+    }
+
+    public void AnimateBars()
+    {
+        Vector3 playerPos = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
+        StopCoroutine(AnimateBarsCoroutine(playerPos));
+        StartCoroutine(AnimateBarsCoroutine(playerPos));
+    }
+
+    IEnumerator AnimateBarsCoroutine(Vector3 playerPos)
+    {
+        float delayTime = bannerAnimWaitTime;
+        float speed = bannerAnimSpeed/2;
+        float animatePercent = 0;
+        int dir = 1;
+
+        float endDelayTime = Time.time + 1 / speed + delayTime;
+
+        while (animatePercent >= 0)
+        {
+            animatePercent += Time.deltaTime * speed * dir;
+
+            if (animatePercent >= 1)
+            {
+                animatePercent = 1;
+                if (Time.time > endDelayTime)
+                {
+                    dir = -1;
+                }
+            }
+
+            xBar.GetComponent<RectTransform>().anchoredPosition = Vector2.right * Mathf.Lerp(0, playerPos.x, animatePercent);
+            yBar.GetComponent<RectTransform>().anchoredPosition = Vector2.up * Mathf.Lerp(0, playerPos.y, animatePercent);
+            yield return null;
+        }
     }
 
     IEnumerator BannerAnim()
@@ -122,6 +160,19 @@ public class UIManager : MonoBehaviour
             resultsMenu.GetComponent<RectTransform>().anchoredPosition = Vector2.up * Mathf.Lerp(-375, 540, animatePercent);
             yield return null;
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        this.GetComponent<Image>().color = Color.green;
+        this.transform.localScale *= 1.2f;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        this.GetComponent<Image>().color = Color.white;
+        this.transform.localScale /= 1.2f;
+
     }
 
 }
