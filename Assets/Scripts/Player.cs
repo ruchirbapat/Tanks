@@ -25,6 +25,7 @@ public class Player : Entity
 
     public GameObject body;
     public LayerMask mouseMask;
+    public Transform crosshair;
 
     protected void Awake()
     {
@@ -38,7 +39,13 @@ public class Player : Entity
         attachedRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponentInChildren<GunController>();
         Globals.RandomPointOnCircle(transform.position, 1);
+        mainCamera = Camera.main;
+        try
+        {
+            crosshair = GameObject.FindGameObjectWithTag("Crosshair").transform;
+        } catch { }
         //angle = Vector3.zero;
+        //Cursor.visible = false;
     }
 
     IEnumerator Turn(float turnTime, Vector3 rotTo)
@@ -64,7 +71,6 @@ public class Player : Entity
         float targetAngle = Mathf.Atan2(latestInput.x, latestInput.z) * Mathf.Rad2Deg;
         angle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * turnSpeed * latestInput.magnitude);
 
-
         // credits to sebastian lague for mouse code
         Ray mouseRay = mainCamera.ScreenPointToRay(Input.mousePosition);
         float distanceToIntersection;
@@ -75,6 +81,8 @@ public class Player : Entity
         if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection))
         {
             Vector3 pt = mouseRay.GetPoint(distanceToIntersection); // last line of sebastian lague code for mouse ray intersection trick
+
+            //crosshair.position = pt;
 
             gunController.Aim(pt);
         }
@@ -104,13 +112,13 @@ public class Player : Entity
     private void FixedUpdate()
     {
            attachedRigidbody.MovePosition(attachedRigidbody.position + velocity * Time.fixedDeltaTime);
-           attachedRigidbody.MoveRotation(Quaternion.Euler(Vector3.up * angle));
+           body.transform.rotation = (Quaternion.Euler(Vector3.up * angle));
     }
 
     // From inherited function
-    public override void Die()
+    public override void Die(Vector3 hitDirection)
     {
-        base.Die();
+        base.Die(hitDirection);
         FindObjectOfType<GameManager>().playerLivesLeft--;
     }
 

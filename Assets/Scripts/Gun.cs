@@ -26,46 +26,60 @@ class Gun : MonoBehaviour
     [Tooltip("Delay between shots in seconds (s)")]
     public float delayBetweenBursts;
 
+    [Header("Recoil properties")]
+    public float recoilStrength;
+    public float recoilTime;
+
     [System.NonSerialized]
     private List<Bullet> activeBurstBullets;
     private float nextPossibleShootTime;
     public bool triggerReleasedLastFrame;
 
+    MuzzleFlash muzzleFlash;
+
+    Vector3 recoilSmoothDampVelocity;
+    Vector3 initialLocalPosition;
+
     void Start()
     {
         activeBurstBullets = new List<Bullet>();
         nextPossibleShootTime = Time.time;
+        muzzleFlash = GetComponentInChildren<MuzzleFlash>();
+        initialLocalPosition = transform.localPosition;
+    }
+
+    void LateUpdate()
+    {
+        transform.localPosition = Vector3.SmoothDamp(transform.localPosition, initialLocalPosition, ref recoilSmoothDampVelocity, recoilTime);
     }
 
     public void Shoot()
     {
+        bool shootable = false;
         if (gunType == GunType.Auto) {
             if (Time.time >= nextPossibleShootTime) {
-                Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
-                b.speed = bulletSpeed;
-                b.gunDamageAmount = gunDamage;
+                shootable = true;
                 nextPossibleShootTime = Time.time + (autoModeShotDelay / 1000);
-                Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
-
             }
-        } else if (gunType == GunType.SingleShot && triggerReleasedLastFrame) { // single shot is still broken
-            Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
-            b.speed = bulletSpeed;
-            b.gunDamageAmount = gunDamage;
-            Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
-
         }
         else if (gunType == GunType.Burst) {
             activeBurstBullets.RemoveAll((x) => { return x == null; });
             if ((Time.time >= nextPossibleShootTime) && (activeBurstBullets.Count < burstSize)) {
-                Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
-                b.speed = bulletSpeed;
-                b.gunDamageAmount = gunDamage;
-                activeBurstBullets.Add(b);
+                shootable = true;
                 nextPossibleShootTime = Time.time + delayBetweenBursts;
-                Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
-
             }
+        }
+
+        if(shootable)
+        {
+            Bullet b = Instantiate(bullet, bulletExitPt.position, transform.rotation) as Bullet;
+            b.speed = bulletSpeed;
+            b.gunDamageAmount = gunDamage;
+            activeBurstBullets.Add(b);
+            Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
+            muzzleFlash.Activate();
+            transform.localPosition -= transform.forward * recoilStrength;
+            Camera.main.GetComponent<CameraShake>().Shake();
         }
     }
 }

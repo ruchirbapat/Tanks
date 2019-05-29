@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class UIManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
     public GameManager gm;
     public GameObject missionBar;
@@ -162,6 +162,7 @@ public class UIManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
     }
 
+#if false
     public void OnPointerEnter(PointerEventData eventData)
     {
         this.GetComponent<Image>().color = Color.green;
@@ -174,6 +175,7 @@ public class UIManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         this.transform.localScale /= 1.2f;
 
     }
+#endif
 
 }
 

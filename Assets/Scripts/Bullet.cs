@@ -23,18 +23,16 @@ public class Bullet : MonoBehaviour
         bounceable = GameObject.FindGameObjectsWithTag("Environment")[0].gameObject.layer;
     }
     
-    void DeleteBullet()
-    {
-        Destroy(gameObject);
+    void OnDestroy() {
         Camera.main.GetComponent<CameraShake>().Shake();
     }
 
     private void Start()
     {
-        //Destroy(gameObject, lifetime);
-
-        instantiateTime = Time.time;
-        deathTime = instantiateTime + (lifetime);
+        Destroy(gameObject, lifetime);
+        
+        //instantiateTime = Time.time;
+        //deathTime = instantiateTime + (lifetime);
 
         /*Collider[] collisions = Physics.OverlapSphere(transform.position, skin, collidable);
         if (collisions.Length > 0)
@@ -46,8 +44,8 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time > deathTime)
-            DeleteBullet();
+        /*if (Time.time > deathTime)
+            Destroy(gameObject);//DeleteBullet();*/
 
         float velocity = speed * Time.deltaTime;
         CheckForCollisions(velocity);
@@ -62,16 +60,17 @@ public class Bullet : MonoBehaviour
         //if (Physics.Raycast(ray, out hit, vel + skin, collidable, QueryTriggerInteraction.Collide)) {
         if (Physics.Raycast(ray, out hit, velocity + skin, collidable)) {
             //HitObject(hit.collider, hit.point);
-            HitObject(hit);
+            HitObject(hit, hit.point);
         }
     }
 
-    private void HitObject(RaycastHit hit)
+    private void HitObject(RaycastHit hit, Vector3 hitPoint)
     {
         if (hit.collider.gameObject.layer == bounceable) {
 
             if (bounces >= maxBounces) {
-                DeleteBullet();
+                //DeleteBullet();
+                Destroy(gameObject);
                 //speed -= 9;
             } else {
                 bounces++;
@@ -80,12 +79,18 @@ public class Bullet : MonoBehaviour
 
         } else {
             if (hit.collider.gameObject.layer == Globals.PlayerLayer) {
-                hit.collider.gameObject.GetComponentInParent<Player>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
-            } else if (hit.collider.gameObject.layer == Globals.EnemyLayer) {
-                hit.collider.gameObject.GetComponentInParent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
-                FindObjectOfType<GameManager>().enemiesKilled++;
+                //hit.collider.gameObject.GetComponentInParent<Player>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
+                hit.collider.gameObject.GetComponentInParent<Player>().TakeHit(gunDamageAmount, hit.point, transform.forward);
             }
-            DeleteBullet();
+            else if (hit.collider.gameObject.layer == Globals.EnemyLayer) {
+                //hit.collider.gameObject.GetComponentInParent<Enemy>().TakeHit(gunDamageAmount, hit.point, -(hit.collider.transform.forward));
+                hit.collider.gameObject.GetComponentInParent<Enemy>().TakeHit(gunDamageAmount, hit.point, transform.forward);
+                FindObjectOfType<GameManager>().enemiesKilled++;
+            } else if(hit.collider.gameObject.layer == Globals.BulletLayer) {
+                Destroy(hit.collider.gameObject);
+            }
+            Destroy(gameObject);
+            //DeleteBullet();
         }
     }
 

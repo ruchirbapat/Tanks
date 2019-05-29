@@ -17,6 +17,7 @@ TagManager:
   - Environment
   - Play Button
   - Title Text
+  - Crosshair
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Shells
   - Bullets
   - Mouse Mask
-  - 
+  - Crosshair
   - 
   - 
   - 

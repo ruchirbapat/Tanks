@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadSceneCoroutine()
     {
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene(currentScene);
         yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));

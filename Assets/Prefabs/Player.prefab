@@ -50,6 +50,8 @@ MonoBehaviour:
   autoModeShotDelay: 15
   burstSize: 5
   delayBetweenBursts: 0.25
+  recoilStrength: 0.2
+  recoilTime: 0.2
   triggerReleasedLastFrame: 0
 --- !u!1 &6420417725724563049
 GameObject:
@@ -117,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
+  deathEffect: {fileID: 0}
   mainCamera: {fileID: 0}
   movementSpeed: 7.5
   turnSpeed: 7.5
@@ -124,6 +127,7 @@ MonoBehaviour:
   mouseMask:
     serializedVersion: 2
     m_Bits: 16384
+  crosshair: {fileID: 0}
 --- !u!65 &6420417725724563029
 BoxCollider:
   m_ObjectHideFlags: 0

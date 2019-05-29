@@ -22,6 +22,7 @@ public static class Globals
     public const int EnvironmentLayer = 9;
     public const int EnemyLayer = 10;
     public const int PlayerLayer = 11;
+    public const int BulletLayer = 13;
     public static float FastInvSqrt(float x)
     {
         float xhalf = 0.5f * x;
