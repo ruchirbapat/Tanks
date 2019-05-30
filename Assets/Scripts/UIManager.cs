@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
     public GameObject yBar;
     public float bannerAnimSpeed;
     public float bannerAnimWaitTime;
+    public Transform crosshair;
 
     void Awake()
     {
@@ -32,6 +33,20 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         {
             gm = FindObjectOfType<GameManager>();
         }
+        try { crosshair = GameObject.FindGameObjectWithTag("Crosshair").transform; Cursor.visible = false; } catch { };
+    }
+
+    private void LateUpdate()
+    {
+        if(crosshair)
+        {
+            crosshair.position = Input.mousePosition;
+        }
+    }
+
+    private void Start()
+    {
+        GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
     }
 
     public void BackToMenu()

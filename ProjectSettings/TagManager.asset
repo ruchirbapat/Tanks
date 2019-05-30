@@ -18,6 +18,7 @@ TagManager:
   - Play Button
   - Title Text
   - Crosshair
+  - UI Camera
   layers:
   - Default
   - TransparentFX

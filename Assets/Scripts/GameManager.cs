@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
         ogEnemyCount = FindObjectsOfType<Enemy>().Length;
     }
 
+    private void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
+    }
+
     IEnumerator CheckEntities(float delay)
     {
         while (true)

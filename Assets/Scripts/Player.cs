@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : Entity
 {
-
     private GunController gunController;
     private Rigidbody attachedRigidbody;
     public Camera mainCamera;
@@ -25,7 +24,6 @@ public class Player : Entity
 
     public GameObject body;
     public LayerMask mouseMask;
-    public Transform crosshair;
 
     protected void Awake()
     {
@@ -40,12 +38,7 @@ public class Player : Entity
         gunController = GetComponentInChildren<GunController>();
         Globals.RandomPointOnCircle(transform.position, 1);
         mainCamera = Camera.main;
-        try
-        {
-            crosshair = GameObject.FindGameObjectWithTag("Crosshair").transform;
-        } catch { }
         //angle = Vector3.zero;
-        //Cursor.visible = false;
     }
 
     IEnumerator Turn(float turnTime, Vector3 rotTo)
@@ -76,13 +69,14 @@ public class Player : Entity
         float distanceToIntersection;
 
         // intersect with a plane at the same level as the gun to fix a weird parallax issue
-        Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y - transform.position.y));
+        Plane eyeLevelIntersectionPlane = new Plane(Vector3.up, Vector3.up * (gunController.Gun.transform.position.y));// - transform.position.y));
 
         if (eyeLevelIntersectionPlane.Raycast(mouseRay, out distanceToIntersection))
         {
             Vector3 pt = mouseRay.GetPoint(distanceToIntersection); // last line of sebastian lague code for mouse ray intersection trick
 
-            //crosshair.position = pt;
+            if(crosshair)
+                crosshair.position = pt;
 
             gunController.Aim(pt);
         }
