@@ -796,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 519794627576752803, guid: c50717f17c6ff4b4a829416403e81b59,
         type: 3}
       propertyPath: gunDamage
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 519794628493287516, guid: c50717f17c6ff4b4a829416403e81b59,
         type: 3}
@@ -1102,7 +1102,7 @@ PrefabInstance:
     - target: {fileID: 519794627576752803, guid: c50717f17c6ff4b4a829416403e81b59,
         type: 3}
       propertyPath: gunDamage
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 519794628493287516, guid: c50717f17c6ff4b4a829416403e81b59,
         type: 3}
