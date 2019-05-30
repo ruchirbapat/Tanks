@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 5903637114799070382, guid: 666dc35be9933b84eab95bd6e5947a6b,
+    type: 3}
   mainCamera: {fileID: 0}
   movementSpeed: 7.5
   turnSpeed: 7.5

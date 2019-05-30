@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentScene: 0
-  ogPlayerLives: 1
+  ogPlayerLives: 3
   ogEnemyCount: 0
   playerLivesLeft: 0
   highestScene: 3

@@ -72,19 +72,22 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
 
+            if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
+
         }
     }
 
     public void NextLevel() {
-        if (gameOver == true) { gameOver = false; };
-        currentScene++;
+        gameOver = false;
+        //        currentScene++;
         StartCoroutine(LoadSceneCoroutine());
+        StopCoroutine(LoadSceneCoroutine());
     }
 
     IEnumerator LoadSceneCoroutine()
     {
-        yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(currentScene);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(++currentScene);
         yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
         um.AnimateNewLevelBanner();
@@ -92,7 +95,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine()); }
-    public void LoadMenu() { /*Time.timeScale = 1f;*/ currentScene = 0; SceneManager.LoadScene(currentScene); um.ResetResults(); print("done ressetting"); }
+    public void LoadMenu() { /*Time.timeScale = 1f;*/ currentScene = 0; SceneManager.LoadScene(currentScene); um.ResetResults(); print("done resetting"); }
     public void GameOver() { print("game over"); um.AnimateResults(); /*Time.timeScale = 0f;*/ enemiesKilled = 0; }
  
 }

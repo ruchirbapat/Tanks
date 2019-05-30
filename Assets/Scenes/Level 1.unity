@@ -10635,7 +10635,7 @@ MonoBehaviour:
   shell: {fileID: 114710530505646858, guid: 144d01095bef53d4d90f8bc89f2e2c8c, type: 3}
   bulletExitPt: {fileID: 895027888}
   shellExitPt: {fileID: 679004268}
-  gunDamage: 0
+  gunDamage: 100
   bulletSpeed: 12.5
   gunType: 1
   autoModeShotDelay: 15
