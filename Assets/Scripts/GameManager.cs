@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     UIManager um;
     public int currentScene;
     public int ogPlayerLives;
-    public int ogEnemyCount;
     public int playerLivesLeft;
+    public int ogEnemyCount;
     public int highestScene;
     int enemiesLeft;
     bool gameOver = false;
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
             um = FindObjectOfType<UIManager>();
         }
         playerLivesLeft = ogPlayerLives;
+        StartCoroutine(CheckEntities(3f));
     }
 
     void OnLevelWasLoaded()
@@ -35,68 +36,82 @@ public class GameManager : MonoBehaviour
         ogEnemyCount = FindObjectsOfType<Enemy>().Length;
     }
 
-    void Update()
+    IEnumerator CheckEntities(float delay)
     {
-        enemiesLeft = FindObjectsOfType<Enemy>().Length;
-        bool playerAlive = (FindObjectOfType<Player>() != null);
+        while (true)
+        {
+            enemiesLeft = FindObjectsOfType<Enemy>().Length;
+            bool playerAlive = (FindObjectOfType<Player>() != null);
 
-        if (!gameOver) {
-            if (ogEnemyCount > 0)
+            if (!gameOver)
             {
-                if (enemiesLeft == 0)
+                if (ogEnemyCount > 0)
                 {
-                    if (currentScene == highestScene)
+                    if (enemiesLeft == 0)
                     {
-                        gameOver = true;
+                        if (currentScene == highestScene)
+                        {
+                            gameOver = true;
+                        }
+                        else
+                        {
+                            NextLevel();
+                        }
                     }
-                    else
+                    else if (!playerAlive)
                     {
-                        NextLevel();
+                        if (playerLivesLeft > 0)
+                        {
+                            ReloadLevel();
+                        }
+                        else
+                        {
+                            gameOver = true;
+                        }
                     }
                 }
-                else if (!playerAlive)
+
+                if (gameOver)
                 {
-                    if (playerLivesLeft > 0)
-                    {
-                        ReloadLevel();
-                    }
-                    else
-                    {
-                        gameOver = true;
-                    }
+                    GameOver();
                 }
+
+                if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
+
             }
 
-            if(gameOver)
+            if (delay <= 0f)
             {
-                GameOver();
+                Debug.LogError("Entity Check Delay too low");
             }
-
-            if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
-
+            else
+            {
+                yield return new WaitForSeconds(delay + Time.deltaTime);
+            }
         }
     }
 
     public void NextLevel() {
         gameOver = false;
         //        currentScene++;
-        StartCoroutine(LoadSceneCoroutine());
-        StopCoroutine(LoadSceneCoroutine());
+        StartCoroutine(LoadSceneCoroutine(true));
+        print("done couroutine!!");
     }
 
-    IEnumerator LoadSceneCoroutine()
+    IEnumerator LoadSceneCoroutine(bool nextLevel)
     {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(++currentScene);
+        if (nextLevel)
+            currentScene++;
+        SceneManager.LoadScene(currentScene);
         yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
         um.AnimateNewLevelBanner();
         um.AnimateBars();
     }
 
-    public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine()); }
-    public void LoadMenu() { /*Time.timeScale = 1f;*/ currentScene = 0; SceneManager.LoadScene(currentScene); um.ResetResults(); print("done resetting"); }
-    public void GameOver() { print("game over"); um.AnimateResults(); /*Time.timeScale = 0f;*/ enemiesKilled = 0; }
+    public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine(false)); }
+    public void LoadMenu() { currentScene = 0; SceneManager.LoadScene(currentScene); um.ResetResults(); }
+    public void GameOver() { print("game over"); um.AnimateResults(); enemiesKilled = 0; }
  
 }
 

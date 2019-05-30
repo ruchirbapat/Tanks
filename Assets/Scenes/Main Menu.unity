@@ -1100,8 +1100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScene: 0
   ogPlayerLives: 3
-  ogEnemyCount: 0
   playerLivesLeft: 0
+  ogEnemyCount: 0
   highestScene: 3
   enemiesKilled: 0
 --- !u!4 &199533360
@@ -1532,7 +1532,7 @@ PrefabInstance:
     - target: {fileID: 6420417725724563028, guid: 50b84eaf93b82e640b3cddad854f322a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.4904394
+      value: 1.81
       objectReference: {fileID: 0}
     - target: {fileID: 6420417725724563028, guid: 50b84eaf93b82e640b3cddad854f322a,
         type: 3}
@@ -1672,6 +1672,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera Holder
       objectReference: {fileID: 0}
+    - target: {fileID: 2982406571717220837, guid: 22dd2c3ddd530f645b09abc5395932c4,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 2982406572457429475, guid: 22dd2c3ddd530f645b09abc5395932c4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1726,11 +1731,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982406571717220837, guid: 22dd2c3ddd530f645b09abc5395932c4,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2982406571457946695, guid: 22dd2c3ddd530f645b09abc5395932c4,
         type: 3}

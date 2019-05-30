@@ -118,8 +118,8 @@ public class Player : Entity
     // From inherited function
     public override void Die(Vector3 hitDirection)
     {
-        base.Die(hitDirection);
         FindObjectOfType<GameManager>().playerLivesLeft--;
+        base.Die(hitDirection);
     }
 
     //Overrided TakeHit incase I decide Player should have particle system too
