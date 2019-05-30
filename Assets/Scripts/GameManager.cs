@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public int ogEnemyCount;
     public int highestScene;
     int enemiesLeft;
-    bool gameOver = false;
+    bool backToMenu = false;
     public int enemiesKilled;
 
     void Awake()
@@ -31,7 +31,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CheckEntities(3f));
     }
 
-    void OnLevelWasLoaded()
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += EveryLevel;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= EveryLevel;
+    }
+
+    private void EveryLevel(Scene scene, LoadSceneMode mode)
     {
         ogEnemyCount = FindObjectsOfType<Enemy>().Length;
     }
@@ -48,7 +58,7 @@ public class GameManager : MonoBehaviour
             enemiesLeft = FindObjectsOfType<Enemy>().Length;
             bool playerAlive = (FindObjectOfType<Player>() != null);
 
-            if (!gameOver)
+            if (!backToMenu)
             {
                 if (ogEnemyCount > 0)
                 {
@@ -56,7 +66,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (currentScene == highestScene)
                         {
-                            gameOver = true;
+                            backToMenu = true;
                         }
                         else
                         {
@@ -71,18 +81,18 @@ public class GameManager : MonoBehaviour
                         }
                         else
                         {
-                            gameOver = true;
+                            backToMenu = true;
                         }
                     }
                 }
 
-                if (gameOver)
-                {
-                    GameOver();
-                }
-
                 if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
 
+            }
+
+            if (backToMenu)
+            {
+                GameOver();
             }
 
             if (delay <= 0f)
@@ -97,7 +107,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void NextLevel() {
-        gameOver = false;
+        backToMenu = false;
         //        currentScene++;
         StartCoroutine(LoadSceneCoroutine(true));
         print("done couroutine!!");

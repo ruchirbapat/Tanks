@@ -24,6 +24,7 @@ public class Player : Entity
 
     public GameObject body;
     public LayerMask mouseMask;
+    public GameObject crosshair;
 
     protected void Awake()
     {
@@ -38,6 +39,7 @@ public class Player : Entity
         gunController = GetComponentInChildren<GunController>();
         Globals.RandomPointOnCircle(transform.position, 1);
         mainCamera = Camera.main;
+        try { crosshair = GameObject.FindGameObjectWithTag("Crosshair"); Cursor.visible = false; } catch { };
         //angle = Vector3.zero;
     }
 
@@ -52,6 +54,11 @@ public class Player : Entity
             yield return null;
         }
         rotating = false;
+    }
+
+    void OnDestroy()
+    {
+        Cursor.visible = true;
     }
 
     private void Update()
@@ -75,8 +82,8 @@ public class Player : Entity
         {
             Vector3 pt = mouseRay.GetPoint(distanceToIntersection); // last line of sebastian lague code for mouse ray intersection trick
 
-            if(crosshair)
-                crosshair.position = pt;
+            if (crosshair)
+                crosshair.transform.position = new Vector3(pt.x, crosshair.transform.position.y, pt.z); ;
 
             gunController.Aim(pt);
         }

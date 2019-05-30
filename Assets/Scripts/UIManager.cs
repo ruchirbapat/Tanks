@@ -33,18 +33,29 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         {
             gm = FindObjectOfType<GameManager>();
         }
-        try { crosshair = GameObject.FindGameObjectWithTag("Crosshair").transform; Cursor.visible = false; } catch { };
+      //  try { crosshair = GameObject.FindGameObjectWithTag("Crosshair").transform; Cursor.visible = false; } catch { };
     }
 
+    /*
     private void LateUpdate()
     {
-        if(crosshair)
+        if(crosshair && )
         {
             crosshair.position = Input.mousePosition;
         }
+    }*/
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += EveryLevel;
     }
 
-    private void Start()
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= EveryLevel;
+    }
+
+    private void EveryLevel(Scene scene, LoadSceneMode mode)
     {
         GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
     }
@@ -78,7 +89,6 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         gm.NextLevel();
         menuUI.SetActive(false);
     }
-
     public void AnimateNewLevelBanner()
     {
         StopCoroutine(BannerAnim());
