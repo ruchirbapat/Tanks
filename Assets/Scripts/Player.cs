@@ -83,7 +83,7 @@ public class Player : Entity
             Vector3 pt = mouseRay.GetPoint(distanceToIntersection); // last line of sebastian lague code for mouse ray intersection trick
 
             if (crosshair)
-                crosshair.transform.position = new Vector3(pt.x, crosshair.transform.position.y, pt.z); ;
+                crosshair.transform.position = pt;
 
             gunController.Aim(pt);
         }
