@@ -43,7 +43,7 @@ public class Entity : MonoBehaviour
     public virtual void Die(Vector3 hitDirection)
     {
         if (OnDeath != null) { OnDeath(); };
-        Destroy(Instantiate(deathEffect, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)), deathEffectDestroyTime);
+        Destroy(Instantiate(deathEffect, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)), 2);
         Destroy(gameObject);
     }
 }

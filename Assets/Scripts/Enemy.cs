@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : Entity
 {
-
+    public bool shouldAim = true;
     private Player player;
     private NavMeshAgent navAgent;
     private GunController gunController;
@@ -27,7 +27,9 @@ public class Enemy : Entity
 
     [Header("Other Attributes")]
     public LayerMask collideMask;
-    public float maxCloseness;
+    public float maxWalkDistance = 0;
+
+    private Vector3 finalPos;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -45,13 +47,54 @@ public class Enemy : Entity
         OnDeath += OnEnemyDeath;
         currentTask = CurrentTask.Idle;
         halfHeight = GetComponent<BoxCollider>().size.y / 2;
+
+#if false
+        switch (intelligence)
+        {
+            case 1:
+                StartCoroutine(Intelligence1());
+                break;
+            case 2:
+                StartCoroutine(Intelligence2());
+                break;
+            case 3:
+                StartCoroutine(Intelligence3());
+                break;
+            default: break;
+        }
+#endif
+    }
+
+    IEnumerator Intelligence1()
+    {
+        gunController.Shoot();
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    IEnumerator Intelligence2()
+    {
+        gunController.Aim(Globals.PlayerNextPosition);
+        gunController.Shoot();
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    IEnumerator Intelligence3()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * maxWalkDistance;
+        Vector3 nextPos = transform.position + randomDirection;
+        NavMeshHit navMeshHitRef;
+        NavMesh.SamplePosition(randomDirection, out navMeshHitRef, maxWalkDistance, 1);
+        finalPos = navMeshHitRef.position;
+        navAgent.SetDestination(finalPos);
+        yield return new WaitForSeconds(0.2f);
     }
 
     private void Update()
     {
         if (player != null)
         {
-            gunController.Aim(player.transform.position);
+            if(shouldAim)
+                gunController.Aim(player.transform.position);
             Ray ray = new Ray(transform.position, new Vector3(player.transform.position.x, transform.position.y + halfHeight, player.transform.position.z) - new Vector3(transform.position.x, transform.position.y + halfHeight, transform.position.z));
             RaycastHit hit;
 
@@ -84,6 +127,7 @@ public class Enemy : Entity
         }
 
 #endif
+
             if (directLineofSight)
             {
                 switch (intelligence)
@@ -91,9 +135,19 @@ public class Enemy : Entity
                     case 2:
                         gunController.Aim(Globals.PlayerNextPosition);
                         break;
+                    case 3:
+                        if (Vector3.Distance(finalPos, transform.position) <= 0.1f)
+                        {
+                            Vector3 randomDirection = Random.insideUnitSphere * maxWalkDistance;
+                            Vector3 nextPos = transform.position + randomDirection;
+                            NavMeshHit navMeshHitRef;
+                            NavMesh.SamplePosition(randomDirection, out navMeshHitRef, maxWalkDistance, 1);
+                            finalPos = navMeshHitRef.position;
+                            navAgent.SetDestination(finalPos);
+                        }
+                        break;
                     default: break;
                 }
-
                 gunController.Shoot();
             }
             else

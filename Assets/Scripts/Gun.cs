@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Gun))]
-class Gun : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     public enum GunType { Auto, Burst, SingleShot }
 
@@ -30,11 +29,14 @@ class Gun : MonoBehaviour
     public float recoilStrength;
     public float recoilTime;
 
+    [Header("Audio properties")]
+    AudioSource audioSource;
+
     [System.NonSerialized]
     private List<Bullet> activeBurstBullets;
     private float nextPossibleShootTime;
-    public bool triggerReleasedLastFrame;
 
+    public bool triggerReleasedLastFrame;
     MuzzleFlash muzzleFlash;
 
     Vector3 recoilSmoothDampVelocity;
@@ -46,6 +48,7 @@ class Gun : MonoBehaviour
         nextPossibleShootTime = Time.time;
         muzzleFlash = GetComponentInChildren<MuzzleFlash>();
         initialLocalPosition = transform.localPosition;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void LateUpdate()
@@ -77,6 +80,7 @@ class Gun : MonoBehaviour
             b.gunDamageAmount = gunDamage;
             activeBurstBullets.Add(b);
             Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
+            audioSource.PlayOneShot(audioSource.clip);
             muzzleFlash.Activate();
             transform.localPosition -= transform.forward * recoilStrength;
             Camera.main.GetComponent<CameraShake>().Shake();

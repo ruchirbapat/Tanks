@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Boss1Gun : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Gun[] guns;
+    public float turnRate;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        for (int i = 0; i < guns.Length; i++)
+        {
+            print("gun " + i.ToString());
+            guns[i].transform.Rotate(Vector3.up * Time.deltaTime * turnRate);
+            guns[i].Shoot();
+        }
     }
 }

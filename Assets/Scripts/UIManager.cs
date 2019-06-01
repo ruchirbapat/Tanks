@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
     public TextMeshProUGUI timeTaken;
     public TextMeshProUGUI todayDate;
     public TextMeshProUGUI finalScore;
+    public GameObject playButton;
     public GameObject menuUI;
     public GameObject xBar;
     public GameObject yBar;
@@ -174,6 +175,18 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
             resultsMenu.GetComponent<RectTransform>().anchoredPosition = Vector2.up * Mathf.Lerp(-375, 540, animatePercent);
             yield return null;
         }
+    }
+
+    public void StartButtonPointerHover()
+    {
+        AudioSource playButtonAudioSource = playButton.GetComponent<AudioSource>();
+        playButtonAudioSource.PlayOneShot(playButtonAudioSource.clip);
+        playButton.transform.localScale *= 1.2f;
+    }
+
+    public void StartButtonPointerExit()
+    {
+        playButton.transform.localScale /= 1.2f;
     }
 
 }

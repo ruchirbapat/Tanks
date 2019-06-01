@@ -63,7 +63,6 @@ public class Player : Entity
 
     private void Update()
     {
-
         latestInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         //smoothInputMagnitude = Mathf.SmoothDamp(smoothInputMagnitude, latestInput.magnitude, ref smoothMoveVelocity, movementSmoothSpeed);
         velocity = latestInput * movementSpeed;// * smoothInputMagnitude;
@@ -119,7 +118,7 @@ public class Player : Entity
     // From inherited function
     public override void Die(Vector3 hitDirection)
     {
-        FindObjectOfType<GameManager>().playerLivesLeft--;
+        try { FindObjectOfType<GameManager>().playerLivesLeft--; } catch { };
         base.Die(hitDirection);
     }
 
