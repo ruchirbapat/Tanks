@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
         um.AnimateNewLevelBanner();
-        um.AnimateBars();
+        //um.AnimateBars();
     }
 
     public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine(false)); }
