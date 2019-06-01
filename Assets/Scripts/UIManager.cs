@@ -88,9 +88,19 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
     public void AnimateBars()
     {
-        Vector3 playerPos = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
-        StopCoroutine(AnimateBarsCoroutine(playerPos));
-        StartCoroutine(AnimateBarsCoroutine(playerPos));
+        //first you need the RectTransform component of your canvas
+        RectTransform CanvasRect = GetComponent<Canvas>().GetComponent<RectTransform>();
+
+        //then you calculate the position of the UI element
+        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
+
+        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
+        Vector2 WorldObject_ScreenPosition = new Vector2(
+        ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
+        ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
+
+        StopCoroutine(AnimateBarsCoroutine(WorldObject_ScreenPosition));
+        StartCoroutine(AnimateBarsCoroutine(WorldObject_ScreenPosition));
     }
 
     IEnumerator AnimateBarsCoroutine(Vector3 playerPos)
@@ -179,6 +189,7 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
     public void StartButtonPointerHover()
     {
+        playButton.GetComponent<Image>().color = Color.green;
         AudioSource playButtonAudioSource = playButton.GetComponent<AudioSource>();
         playButtonAudioSource.PlayOneShot(playButtonAudioSource.clip);
         playButton.transform.localScale *= 1.2f;
@@ -186,6 +197,7 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
     public void StartButtonPointerExit()
     {
+        playButton.GetComponent<Image>().color = Color.white;
         playButton.transform.localScale /= 1.2f;
     }
 
