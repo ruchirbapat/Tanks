@@ -28,7 +28,9 @@ public class Enemy : Entity
     [Header("Other Attributes")]
     public LayerMask collideMask;
     public float maxWalkDistance = 0;
+    public float randomWalkTime = 1f;
 
+    private float randomWalkTimer = 0f;
     private Vector3 finalPos;
 
     // Start is called before the first frame update
@@ -47,6 +49,7 @@ public class Enemy : Entity
         OnDeath += OnEnemyDeath;
         currentTask = CurrentTask.Idle;
         halfHeight = GetComponent<BoxCollider>().size.y / 2;
+        finalPos = transform.position;
 
 #if false
         switch (intelligence)
@@ -127,7 +130,6 @@ public class Enemy : Entity
         }
 
 #endif
-
             if (directLineofSight)
             {
                 switch (intelligence)
@@ -136,13 +138,15 @@ public class Enemy : Entity
                         gunController.Aim(Globals.PlayerNextPosition);
                         break;
                     case 3:
-                        if (Vector3.Distance(finalPos, transform.position) <= 0.1f)
+                        if (Vector3.Distance(finalPos, transform.position) <= 2f)
                         {
                             Vector3 randomDirection = Random.insideUnitSphere * maxWalkDistance;
                             Vector3 nextPos = transform.position + randomDirection;
+                            nextPos.y = transform.position.y;
                             NavMeshHit navMeshHitRef;
-                            NavMesh.SamplePosition(randomDirection, out navMeshHitRef, maxWalkDistance, 1);
+                            NavMesh.SamplePosition(nextPos, out navMeshHitRef, maxWalkDistance, -1);
                             finalPos = navMeshHitRef.position;
+                            finalPos.y = transform.position.y;
                             navAgent.SetDestination(finalPos);
                         }
                         break;

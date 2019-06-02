@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public int playerLivesLeft;
     public int ogEnemyCount;
     public int highestScene;
+    public bool gamePaused = false;
+    public float PlayStartTime;
     int enemiesLeft;
     bool backToMenu = false;
     public int enemiesKilled;
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
         {
             um = FindObjectOfType<UIManager>();
         }
+        highestScene = SceneManager.sceneCountInBuildSettings - 1;
         playerLivesLeft = ogPlayerLives;
         StartCoroutine(CheckEntities(3f));
     }
@@ -49,6 +52,16 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
+        if (Input.GetKeyDown(KeyCode.R)) { ReloadLevel(); }
+        if (Input.GetKeyDown(KeyCode.P) && currentScene != 0) {
+            if(gamePaused)
+            {
+                ResumeGame();
+            } else
+            {
+                PauseGame();
+            }
+        }
     }
 
     IEnumerator CheckEntities(float delay)
@@ -92,8 +105,6 @@ public class GameManager : MonoBehaviour
                     GameOver();
                 }
 
-                if (Input.GetKeyDown(KeyCode.H)) { if (currentScene == 0) { um.StartGame(); } else { NextLevel(); } }
-
             }
 
 
@@ -129,7 +140,23 @@ public class GameManager : MonoBehaviour
     }
 
     public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine(false)); }
-    public void LoadMenu() { currentScene = 0; SceneManager.LoadScene(currentScene); um.ResetResults(); }
+    public void LoadMenu(bool animateResultsPage) {
+        currentScene = 0; SceneManager.LoadScene(currentScene);
+        if (animateResultsPage) {
+            um.ResetResults(animateResultsPage);
+        }
+    }
     public void GameOver() { print("game over"); um.AnimateResults(); enemiesKilled = 0; }
- 
+    public void PauseGame()
+    {
+        gamePaused = true;
+        um.ShowPauseMenu();
+        Time.timeScale = 0f;
+    }
+    public void ResumeGame()
+    {
+        um.HidePauseMenu();
+        gamePaused = false;
+        Time.timeScale = 1f;
+    }
 }

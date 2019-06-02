@@ -80,7 +80,7 @@ public class Gun : MonoBehaviour
             b.gunDamageAmount = gunDamage;
             activeBurstBullets.Add(b);
             Instantiate(shell, shellExitPt.position, shellExitPt.rotation);
-            audioSource.PlayOneShot(audioSource.clip);
+            try { audioSource.PlayOneShot(audioSource.clip); } catch { };
             muzzleFlash.Activate();
             transform.localPosition -= transform.forward * recoilStrength;
             Camera.main.GetComponent<CameraShake>().Shake();

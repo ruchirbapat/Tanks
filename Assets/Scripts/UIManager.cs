@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
     public GameManager gm;
     public GameObject missionBar;
     public GameObject resultsMenu;
+    public GameObject pauseMenu;
     public TextMeshProUGUI enemiesKilled;
     public TextMeshProUGUI timeTaken;
     public TextMeshProUGUI todayDate;
@@ -50,15 +51,21 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("UI Camera").GetComponent<Camera>();
     }
 
-    public void BackToMenu()
+    public void BackToMenu(bool animResults)
     {
-        gm.LoadMenu();
+        gm.ResumeGame(); //if not already resumed
+        gm.LoadMenu(animResults);
         menuUI.SetActive(true);
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 
-    public void ResetResults()
+    public void ResetResults(bool animateResults)
     {
-        StartCoroutine(ResetResultsAnim());
+        gm.enemiesKilled = 0;
+        timeTaken.text = "";
+        if(animateResults)
+            StartCoroutine(ResetResultsAnim());
     }
 
     IEnumerator ResetResultsAnim()
@@ -76,6 +83,7 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
     
     public void StartGame()
     {
+        gm.PlayStartTime = Time.time;
         gm.NextLevel();
         menuUI.SetActive(false);
     }
@@ -161,13 +169,13 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
     public void AnimateResults()
     {
-        float currentTime = Time.time;
+        float timeTaken = Time.time - gm.PlayStartTime;
         StopCoroutine(ResultsAnim());
         enemiesKilled.text = "Enemies Killed: " + gm.enemiesKilled.ToString();
-        float minutesDec = (currentTime / 60);
+        float minutesDec = (timeTaken / 60);
         int min = Mathf.RoundToInt(minutesDec);
         int sec = (int)(Mathf.Abs(minutesDec - (float)min) * 60);
-        timeTaken.text = "Time Taken: " + min.ToString() + "m " + sec.ToString() + "s";
+        this.timeTaken.text = "Time Taken: " + min.ToString() + "m " + sec.ToString() + "s";
         todayDate.text = "Today's Date: " + System.DateTime.UtcNow.ToString("dd/MM/yy");
         finalScore.text = gm.currentScene.ToString() + " / " + gm.highestScene.ToString();
         //missionBar.GetComponentInChildren<Text>().text = "Level " + (SceneManager.GetActiveScene().buildIndex).ToString();
@@ -201,4 +209,14 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         playButton.transform.localScale /= 1.2f;
     }
 
+    public void ShowPauseMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
+
+    public void HidePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+    }
 }
