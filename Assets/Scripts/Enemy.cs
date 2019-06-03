@@ -104,32 +104,6 @@ public class Enemy : Entity
             bool directLineofSight = !Physics.Raycast(ray, out hit, Vector3.Distance(player.transform.position, transform.position), collideMask);
 
             Debug.DrawRay(ray.origin, ray.direction * Vector3.Distance(player.transform.position, transform.position), directLineofSight ? Color.green : Color.red);
-#if false
-        if(!directLineOfSightPossible && !cantMove.Contains(intelligence)) {
-            //chase
-        }
-        if(cantMove.Contains(intelligence)) {
-            switch(intelligence) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
-        } else {
-            navAgent.SetDestination(player.transform.position);
-        }
-
-        switch (intelligence) {
-            case 1:
-                gunController.TriggerHeld();
-                break;
-            case 2:
-                gunController.Aim(Globals.PlayerNextPosition);
-                break;
-            default: break;
-        }
-
-#endif
             if (directLineofSight)
             {
                 switch (intelligence)

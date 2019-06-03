@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
+public class UIManager : MonoBehaviour
 {
     public GameManager gm;
     public GameObject missionBar;
@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
     public TextMeshProUGUI timeTaken;
     public TextMeshProUGUI todayDate;
     public TextMeshProUGUI finalScore;
+    public TextMeshProUGUI livesLeft;
+    public TextMeshProUGUI currentSceneText;
     public GameObject playButton;
     public GameObject menuUI;
     public GameObject xBar;
@@ -34,6 +36,12 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         {
             gm = FindObjectOfType<GameManager>();
         }
+    }
+
+    private void LateUpdate()
+    {
+        livesLeft.text = "x " + gm.playerLivesLeft.ToString();
+        currentSceneText.text = gm.currentScene == 0 ? "Menu" : "Level " + gm.currentScene.ToString();
     }
 
     void OnEnable()
@@ -178,7 +186,6 @@ public class UIManager : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         this.timeTaken.text = "Time Taken: " + min.ToString() + "m " + sec.ToString() + "s";
         todayDate.text = "Today's Date: " + System.DateTime.UtcNow.ToString("dd/MM/yy");
         finalScore.text = gm.currentScene.ToString() + " / " + gm.highestScene.ToString();
-        //missionBar.GetComponentInChildren<Text>().text = "Level " + (SceneManager.GetActiveScene().buildIndex).ToString();
         StartCoroutine(ResultsAnim());
     }
 

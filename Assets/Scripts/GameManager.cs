@@ -146,7 +146,12 @@ public class GameManager : MonoBehaviour
             um.ResetResults(animateResultsPage);
         }
     }
-    public void GameOver() { print("game over"); um.AnimateResults(); enemiesKilled = 0; }
+    public void GameOver() {
+        print("game over");
+        um.AnimateResults();
+        playerLivesLeft = ogPlayerLives;
+        enemiesKilled = 0;
+    }
     public void PauseGame()
     {
         gamePaused = true;
