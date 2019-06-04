@@ -35,7 +35,8 @@ public class Shell : MonoBehaviour
         StartCoroutine(Fade());
     }
 
-    // Custom coroutine which animates the Shell fading away. It works by linearly interpolating on the Shell's Material's colour
+    // This ALGORITHM is custom coroutine which animates the Shell fading away. It works by linearly interpolating 
+    // on the Shell's Material's colour
     IEnumerator Fade()
     {
         // Wait for the 'lifetime' before beginning to fade (and destroy) the Shell

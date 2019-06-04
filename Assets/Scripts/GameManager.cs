@@ -125,12 +125,14 @@ public class GameManager : MonoBehaviour
         if (animateResultsPage) {
             um.ResetResults(animateResultsPage);
         }
+        playerLivesLeft = ogPlayerLives;
+        enemiesKilled = 0;
     }
     public void GameOver() {
         print("game over");
         um.AnimateResults();
-        playerLivesLeft = ogPlayerLives;
-        enemiesKilled = 0;
+     //   playerLivesLeft = ogPlayerLives;
+      //  enemiesKilled = 0;
     }
     public void PauseGame()
     {
