@@ -70,50 +70,31 @@ public class GameManager : MonoBehaviour
         {
             enemiesLeft = FindObjectsOfType<Enemy>().Length;
             bool playerAlive = (FindObjectOfType<Player>() != null);
-
-
-            if (!backToMenu)
-            {
-                if (ogEnemyCount > 0)
-                {
-                    if (enemiesLeft <= 0)
-                    {
-                        if (currentScene >= highestScene)
-                        {
+            if (!backToMenu) {
+                if (ogEnemyCount > 0) {
+                    if (enemiesLeft <= 0) {
+                        if (currentScene >= highestScene) {
                             backToMenu = true;
-                        }
-                        else
-                        {
+                        } else {
                             NextLevel();
                         }
-                    }
-                    else if (!playerAlive)
-                    {
-                        if (playerLivesLeft > 0)
-                        {
+                    } else if (!playerAlive) {
+                        if (playerLivesLeft > 0) {
                             ReloadLevel();
-                        }
-                        else
-                        {
+                        } else {
                             backToMenu = true;
                         }
                     }
                 }
 
-                if (backToMenu)
-                {
+                if (backToMenu) {
                     GameOver();
                 }
-
             }
 
-
-            if (delay <= 0f)
-            {
+            if (delay <= 0f) {
                 Debug.LogError("Entity Check Delay too low");
-            }
-            else
-            {
+            } else {
                 yield return new WaitForSeconds(delay + Time.deltaTime);
             }
         }
@@ -136,7 +117,6 @@ public class GameManager : MonoBehaviour
         yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
         um.AnimateNewLevelBanner();
-        //um.AnimateBars();
     }
 
     public void ReloadLevel() { StartCoroutine(LoadSceneCoroutine(false)); }

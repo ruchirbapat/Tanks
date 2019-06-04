@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿// Dependencies
+using TMPro;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,20 +9,19 @@ using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    public GameManager gm;
-    public GameObject missionBar;
-    public GameObject resultsMenu;
-    public GameObject pauseMenu;
-    public TextMeshProUGUI enemiesKilled;
-    public TextMeshProUGUI timeTaken;
-    public TextMeshProUGUI todayDate;
-    public TextMeshProUGUI finalScore;
+    // References to User Interface Elements which have been customised in the Unity Editor
+    public GameManager gm; // Game Manager
+    public GameObject missionBar; // Current mission bar
+    public GameObject resultsMenu; // The results page
+    public GameObject pauseMenu; // The entire pause menu
+    public TextMeshProUGUI enemiesKilled; // Text element which displays how many enemies were killed 
+    public TextMeshProUGUI timeTaken; // Text element which displays how much time was taken
+    public TextMeshProUGUI todayDate; // Text element which displays today's date
+    public TextMeshProUGUI finalScore; // Text element which displays the user's final score i.e. the level they reached / the maximum no. of levels
     public TextMeshProUGUI livesLeft;
     public TextMeshProUGUI currentSceneText;
     public GameObject playButton;
     public GameObject menuUI;
-    public GameObject xBar;
-    public GameObject yBar;
     public float bannerAnimSpeed;
     public float bannerAnimWaitTime;
 
@@ -100,51 +100,6 @@ public class UIManager : MonoBehaviour
         StopCoroutine(BannerAnim());
         missionBar.GetComponentInChildren<Text>().text = "Level " + (SceneManager.GetActiveScene().buildIndex).ToString();
         StartCoroutine(BannerAnim());
-    }
-
-    public void AnimateBars()
-    {
-        //first you need the RectTransform component of your canvas
-        RectTransform CanvasRect = GetComponent<Canvas>().GetComponent<RectTransform>();
-
-        //then you calculate the position of the UI element
-        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
-
-        Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(FindObjectOfType<Player>().transform.position);
-        Vector2 WorldObject_ScreenPosition = new Vector2(
-        ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-        ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)));
-
-        StopCoroutine(AnimateBarsCoroutine(WorldObject_ScreenPosition));
-        StartCoroutine(AnimateBarsCoroutine(WorldObject_ScreenPosition));
-    }
-
-    IEnumerator AnimateBarsCoroutine(Vector3 playerPos)
-    {
-        float delayTime = bannerAnimWaitTime;
-        float speed = bannerAnimSpeed/2;
-        float animatePercent = 0;
-        int dir = 1;
-
-        float endDelayTime = Time.time + 1 / speed + delayTime;
-
-        while (animatePercent >= 0)
-        {
-            animatePercent += Time.deltaTime * speed * dir;
-
-            if (animatePercent >= 1)
-            {
-                animatePercent = 1;
-                if (Time.time > endDelayTime)
-                {
-                    dir = -1;
-                }
-            }
-
-            xBar.GetComponent<RectTransform>().anchoredPosition = Vector2.right * Mathf.Lerp(0, playerPos.x, animatePercent);
-            yBar.GetComponent<RectTransform>().anchoredPosition = Vector2.up * Mathf.Lerp(0, playerPos.y, animatePercent);
-            yield return null;
-        }
     }
 
     IEnumerator BannerAnim()
