@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     public float bannerAnimSpeed; // Speed at which the Level N banner moves up and down. It's value is set in the Unity Editor
     public float bannerAnimWaitTime; // Time which the Level N banner should pause for before moving back down. Value also set in the Unity Editor
 
+    private Vector3 playButtonOriginalScale; // Stores the play button's original scale
+
     // Unity's Awake function called once per script
     void Awake()
     {
@@ -45,6 +47,9 @@ public class UIManager : MonoBehaviour
             // Finds object in scene with Game Manager script attached
             gm = FindObjectOfType<GameManager>();
         }
+
+        // Store original scale between so we can reset it after we return to the main menu
+        playButtonOriginalScale = playButton.transform.localScale;
     }
 
     // Called after the Update function. Is used when we want to do UI things after calculation-based update code has been run
@@ -92,6 +97,10 @@ public class UIManager : MonoBehaviour
 
         // Enable the main menu UI
         menuUI.SetActive(true);
+
+        // Reset UI colour and transform
+        playButton.GetComponent<Image>().color = Color.white;
+        playButton.transform.localScale = playButtonOriginalScale;
 
         // Disable the pause menu UI
         pauseMenu.SetActive(false);

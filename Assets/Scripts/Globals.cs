@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿// Dependencies
+using UnityEngine;
 using System;
 
+// Static Globals Information Datastore class. Variables are updated i.e. read from and written to
 public static class Globals
 {
+    // References to player's position THIS frame
     private static Vector3 _playerPosition;
     public static Vector3 PlayerPosition { get { return _playerPosition; } set { _playerPosition = value; } }
+
+    // References to what the player's position will be in the next frame
     private static Vector3 _playerNextPostition;
     public static Vector3 PlayerNextPosition { get { return _playerNextPostition; } set { _playerNextPostition = value; } }
+
+    // Helper function to find a random point on a circle
     public static Vector3 RandomPointOnCircle(Vector3 center, float radius)
     {
         float angle = UnityEngine.Random.value * 360;
@@ -19,22 +26,11 @@ public static class Globals
 
         return pos;
     }
-    public const int EnvironmentLayer = 9;
-    public const int EnemyLayer = 10;
-    public const int PlayerLayer = 11;
-    public const int BulletLayer = 13;
-    public static float FastInvSqrt(float x)
-    {
-        float xhalf = 0.5f * x;
-        int i = BitConverter.ToInt32(BitConverter.GetBytes(x), 0);
-        i = 0x5f3759df - (i >> 1);
-        x = BitConverter.ToSingle(BitConverter.GetBytes(i), 0);
-        x = x * (1.5f - xhalf * x * x);
-        return Mathf.Pow(x, -1);
-    }
-    public static float FastSqrt(float x)
-    {
-        float newX = x - 1;
-        return 1 + (newX / 2) - (Mathf.Pow(newX, 2) / 8) + (Mathf.Pow(newX, 3) / 16) - ((5 * Mathf.Pow(newX, 4)) / 128) + ((7 * Mathf.Pow(newX, 5)) / 256);
-    }
+    
+    // Important constants
+    public const int EnvironmentLayer = 9; // The layermask value for Environment objects (see Unity Editor Inspector Tab)
+    public const int EnemyLayer = 10; // The layermask value for Enenmy objects (see Unity Editor Inspector Tab)
+    public const int PlayerLayer = 11; // The layermask value for the Player (see Unity Editor Inspector Tab)
+    public const int BulletLayer = 13; // The layermask value for Bullet instances (see Unity Editor Inspector Tab)
+
 }

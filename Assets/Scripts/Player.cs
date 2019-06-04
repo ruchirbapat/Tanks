@@ -108,10 +108,6 @@ public class Player : Entity // Inherits from the Entity class
             gunController.Shoot();
         }
 
-        // Release trigger callback for burst mode firing
-        if(Input.GetMouseButtonUp(0)) {
-            gunController.ReleaseTrigger();
-        }
     }
 
     // Increments player's position by their velocity

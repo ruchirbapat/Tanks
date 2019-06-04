@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Dependencies
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // References
     UIManager um;
     public int currentScene;
     public int ogPlayerLives;

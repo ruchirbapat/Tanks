@@ -20,11 +20,6 @@ class GunController : MonoBehaviour
         gun.Shoot();
     }
 
-    // Wrapper function to mark whether the trigger was released
-    public void ReleaseTrigger() {
-        gun.triggerReleasedLastFrame = true;
-    }
-    
     // Aims the Player or Enemy gun at a specific point in the game arena
     public void Aim(Vector3 point)
     {
