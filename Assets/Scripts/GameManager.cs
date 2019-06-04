@@ -150,7 +150,6 @@ public class GameManager : MonoBehaviour
     public void NextLevel() {
         backToMenu = false;
         StartCoroutine(LoadSceneCoroutine(true));
-        print("done couroutine!!");
     }
 
     IEnumerator LoadSceneCoroutine(bool nextLevel)
