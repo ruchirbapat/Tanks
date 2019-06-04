@@ -1,0 +1,11 @@
+Credits Document
+
+Credits to Unity Technologies for the initial base tank model, which I heavily customised for my game.
+Credits to Dmitry Teemofeev on the Unity Asset Store for his Pixelation Shader.
+Credits to Zapsplat.com for their royalty free SFX pack.
+Credits to Google Fonts for their free Pixel Art Font.
+Credits to Google Icon Material Design for their icons (Exit Button, Play Button, Back Button)
+Credits to Wikipedia.org for their Heart SVG image.
+Credits to Sebastian Lague for his free gun shot SFX audio and muzzle flash spritesheet. www.youtube.com/user/Cercopithecan
+
+ALL OTHER CODE, MUSIC, ART, SPRITES, MATERIALS, TEXTURES, ASSETS ETC. WERE CREATED BY THE DEVELOPER OF THE GAME, RUCHIR BAPAT.

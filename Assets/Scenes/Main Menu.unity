@@ -1942,8 +1942,8 @@ MonoBehaviour:
   currentSceneText: {fileID: 1213344865}
   playButton: {fileID: 587707236}
   menuUI: {fileID: 180206794}
-  bannerAnimSpeed: 3
-  bannerAnimWaitTime: 2
+  bannerAnimSpeed: 4
+  bannerAnimWaitTime: 0.5
 --- !u!1 &562310809
 GameObject:
   m_ObjectHideFlags: 0
