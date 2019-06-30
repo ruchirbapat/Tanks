@@ -1,2 +1,2 @@
 # Tanks
-This is the game I am making as my Year 12 Major Work for Software Design and Development.
+This is the game I made for my Year 12 Software Design and Development Major Work.
